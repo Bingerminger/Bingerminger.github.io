@@ -35,19 +35,26 @@ const JOBS = [
     dunkelDe: `${PROMO}/uebersicht-dunkel.de.png`, dunkelEn: `${PROMO}/uebersicht-dunkel.en.png`, width: 1440 },
   { name: 'iphone', de: `${PROMO}/iphone.de.png`, en: `${PROMO}/iphone.en.png`,
     dunkelDe: `${PROMO}/iphone-dunkel.de.png`, dunkelEn: `${PROMO}/iphone-dunkel.en.png`, width: 780 },
-  { name: 'gas', de: `${SHOTS}/gas-view.png`, crop: [220, 48, 1220, 762] },
-  { name: 'rechnung', de: 'tools/quellen/rechnung.de.png', en: 'tools/quellen/rechnung.en.png', local: true, crop: [220, 48, 1220, 762] },
-  { name: 'wechsel', de: `${SHOTS}/tarifvergleich.png`, crop: [220, 48, 1220, 490] },
-  { name: 'zutun', de: `${SHOTS}/zu-tun.png`, crop: [220, 48, 1220, 762] },
-  { name: 'analyse', de: `${SHOTS}/analyse.png`, crop: [220, 500, 1220, 762] },
-  { name: 'prognose', de: `${SHOTS}/prognose.png`, crop: [624, 836, 792, 664] },
-  { name: 'werkstatt', de: `${SHOTS}/prognose.png`, crop: [220, 48, 1220, 762] },
-  { name: 'jahresbericht', de: `${SHOTS}/jahresbericht.png`, crop: [220, 48, 890, 740] },
-  { name: 'kennzahlen', de: `${SHOTS}/kennzahlen.png`, crop: [220, 48, 1220, 740] },
-  { name: 'miete', de: 'tools/quellen/miete.de.png', en: 'tools/quellen/miete.en.png', local: true, crop: [220, 48, 1220, 780] },
-  { name: 'brief', de: `${SHOTS}/brief-dialog.png`, crop: [235, 40, 970, 810] },
-  { name: 'erfassen', de: `${SHOTS}/erfassen-iphone.png`, width: 780 },
+  { name: 'gas', de: `${SHOTS}/gas-view.png`, crop: [220, 48, 1220, 762], dunkel: 'gas-view' },
+  { name: 'rechnung', de: 'tools/quellen/rechnung.de.png', en: 'tools/quellen/rechnung.en.png', local: true, crop: [220, 48, 1220, 762], dunkel: 'rechnung' },
+  { name: 'wechsel', de: `${SHOTS}/tarifvergleich.png`, crop: [220, 48, 1220, 490], dunkel: 'tarifvergleich' },
+  { name: 'zutun', de: `${SHOTS}/zu-tun.png`, crop: [220, 48, 1220, 762], dunkel: 'zu-tun' },
+  { name: 'analyse', de: `${SHOTS}/analyse.png`, crop: [220, 500, 1220, 762], dunkel: 'analyse' },
+  { name: 'prognose', de: `${SHOTS}/prognose.png`, crop: [624, 836, 792, 664], dunkel: 'prognose' },
+  { name: 'werkstatt', de: `${SHOTS}/prognose.png`, crop: [220, 48, 1220, 762], dunkel: 'prognose' },
+  { name: 'jahresbericht', de: `${SHOTS}/jahresbericht.png`, crop: [220, 48, 890, 740], dunkel: 'jahresbericht' },
+  { name: 'kennzahlen', de: `${SHOTS}/kennzahlen.png`, crop: [220, 48, 1220, 740], dunkel: 'kennzahlen' },
+  { name: 'miete', de: 'tools/quellen/miete.de.png', en: 'tools/quellen/miete.en.png', local: true, crop: [220, 48, 1220, 780], dunkel: 'miete' },
+  { name: 'brief', de: `${SHOTS}/brief-dialog.png`, crop: [235, 40, 970, 810], dunkel: 'brief-dialog' },
+  { name: 'erfassen', de: `${SHOTS}/erfassen-iphone.png`, width: 780, dunkel: 'erfassen-iphone' },
 ];
+// Dunkle Fassungen der übrigen Ansichten (nur für die Projektseite, nicht im Haupt-Repo):
+// tools/quellen/dunkel/<name>.<lang>.png, aufgenommen mit
+//   node tools/build-screenshots.mjs <basis-url> <de|en> <ordner> <namen> --dunkel   (Haupt-Repo, Beispielhaushalt)
+//   node tools/aufnahme.mjs <port> <de|en> '#/bill-check' tools/quellen/dunkel/rechnung.<lang>.png 1440 1100 dark
+//   node tools/aufnahme.mjs <port> <de|en> '#/tenancy' tools/quellen/dunkel/miete.<lang>.png 1440 1100 dark   (Mieterhaushalt)
+// Gleiche Fenstergröße wie die helle Aufnahme, damit derselbe Ausschnitt passt.
+const DUNKEL = 'tools/quellen/dunkel';
 
 const WEGWEISER = ['together', 'home-assistant'];
 const FONTS = ['dm-sans.woff2', 'dm-sans-ziffern.woff2', 'dm-mono-400.woff2', 'OFL.txt'];
@@ -96,6 +103,10 @@ for (const job of JOBS) {
     const dunkel = job[lang === 'de' ? 'dunkelDe' : 'dunkelEn'];
     if (dunkel && existsSync(join(ET, dunkel))) {
       await zuschneiden(join(ET, dunkel), crop, job.width, `assets/img/screens/${job.name}-dunkel.${lang}.webp`, quelle(dunkel));
+    } else if (job.dunkel) {
+      const d = `${DUNKEL}/${job.dunkel}.${lang}.png`;
+      if (existsSync(out(d))) await zuschneiden(out(d), crop, job.width, `assets/img/screens/${job.name}-dunkel.${lang}.webp`, d);
+      else console.warn(`ohne dunkle Fassung: ${job.name} (${lang}), fehlt ${d}`);
     }
   }
 }
