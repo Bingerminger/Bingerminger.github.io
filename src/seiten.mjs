@@ -141,7 +141,8 @@ export function rende(lang, art, root) {
   const F = X.FUSS;
   const fuss = `<footer class="fuss"><div class="wrap fuss__raster">
 <div><a class="marke" href="${start}">${logo()}<span>Energietracker</span></a>${P(F.lizenz)}
-<p><a href="${SEITEN.ueber[lang]}">${E(X.UI.ueber)}</a></p></div>
+<p><a href="${SEITEN.ueber[lang]}">${E(X.UI.ueber)}</a></p>
+<p><a href="${SEITEN.ueber[lang]}#u-impressum">${E(X.UI.impressum)}</a></p></div>
 <div>${P(F.seite)}${P(F.marken)}
 <p class="klein"${dc(F.schrift)}>${R(F.schrift)} <a href="/assets/fonts/OFL.txt">OFL</a>. <a href="${X.REPO}/blob/main/TRADEMARKS.md">${E(F.marke)}</a>. <a href="${X.REPO}/blob/main/LICENSE">${E(F.lizenzLink)}</a>.</p></div>
 ${sprachen}
@@ -295,7 +296,7 @@ ${w.note ? P(w.note, 'klein') : ''}
 ${P(U.lead, 'lead')}
 ${U.abschnitte.map(a => `<section aria-labelledby="u-${a.h2.de.toLowerCase().replace(/[^a-zäöüß]+/g, '-')}">
 <h2 id="u-${a.h2.de.toLowerCase().replace(/[^a-zäöüß]+/g, '-')}">${E(a.h2)}</h2>
-${(a.absaetze || []).map(t => P(t)).join('')}${a.liste ? `<ul class="liste">${a.liste.map(t => `<li${dc(t)}>${R(t)}</li>`).join('')}</ul>` : ''}
+${(a.absaetze || []).map(t => P(t)).join('')}${a.liste ? `<ul class="liste">${a.liste.map(t => `<li${dc(t)}>${R(t)}</li>`).join('')}</ul>` : ''}${a.anschrift ? `<address class="anschrift"${dc(a.anschrift)}>${tx(a.anschrift).split('\n').map(esc).join('<br>')}</address>` : ''}${(a.danach || []).map(t => P(t)).join('')}
 </section>`).join('\n')}
 <p><a class="knopf" href="${start}">${E(X.UI.start)}</a></p>
 </div></main>`;

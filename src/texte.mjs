@@ -77,6 +77,7 @@ export const UI = {
   demoStarten: T('Demo starten', 'Start the demo', ['-']),
   installieren: T('Installieren', 'Install', ['-']),
   ueber: T('Über das Projekt und Datenschutz', 'About the project and privacy', ['-']),
+  impressum: T('Impressum', 'Legal notice', ['-']),
   start: T('Zur Startseite', 'To the home page', ['-']),
 };
 
@@ -656,11 +657,20 @@ export const UEBER = {
       T('**Links nach außen** führen zu GitHub, zur Demo, zu Home Assistant und zu buymeacoffee. Erst wenn du sie anklickst, gelten dort deren Regeln.',
         '**Links to the outside** lead to GitHub, the demo, Home Assistant and buymeacoffee. Only when you click them do their rules apply.', ['links-aussen']),
       T('**Die Demo** läuft ganz im Browser, mit erfundenen Beispielhaushalten.', '**The demo** runs entirely in your browser, with invented sample households.', ['demo-browser', 'bsp-erfunden']),
+      T('**Verantwortlich** für diese Seite ist der Anbieter aus dem [Impressum](#u-impressum).',
+        '**Responsible** for this page is the provider named in the [legal notice](#u-impressum).', ['verantwortlich']),
     ] },
     { h2: T('Die App selbst', 'The app itself', ['-']), absaetze: [
       T('Was der Energietracker bei dir zu Hause nach außen spricht, steht im README unter [Deine Daten](' + REPO + '/blob/main/README.de.md#deine-daten): ab Werk nur der Wetterabgleich, abschaltbar.',
         'What Energietracker talks to from your home is listed in the README under [Your data](' + REPO + '#your-data): by default only the weather sync, which can be switched off.',
         ['daten-aussen']),
+    ] },
+    { h2: T('Impressum', 'Legal notice', ['-']), absaetze: [
+      T('Angaben nach § 18 Abs. 1 MStV:', 'Information under section 18 (1) of the German Interstate Media Treaty (MStV):', ['impressum']),
+    ], anschrift: T('Hendrik Schubert\nc/o Block Services\nStuttgarter Str. 106\n70736 Fellbach',
+      'Hendrik Schubert\nc/o Block Services\nStuttgarter Str. 106\n70736 Fellbach\nGermany', ['impressum']),
+    danach: [
+      T('**Schneller geht es über GitHub**, siehe [Kontakt](#u-kontakt).', '**GitHub is quicker**, see [Contact](#u-kontakt).', ['kontakt-github']),
     ] },
   ],
 };
