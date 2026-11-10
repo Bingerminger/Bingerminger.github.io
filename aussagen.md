@@ -1,12 +1,12 @@
 # Aussagen und Belege der Projektseite
 
-Jede Tatsachenbehauptung auf der Seite trägt eine Kennung (`data-c` im HTML, `c` in
-`src/inhalt.mjs`). Diese Liste sagt je Kennung, was behauptet wird und wo es belegt ist.
+Jede Tatsachenbehauptung auf den Seiten trägt eine Kennung (`data-c` im HTML, `c` in
+`src/texte.mjs`). Diese Liste sagt je Kennung, was behauptet wird und wo es belegt ist.
 `node tools/build.mjs --check` bricht ab, wenn die Seite eine Kennung benutzt, die hier
 fehlt, oder hier eine Zeile steht, die keine Seite benutzt.
 
 Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
-`20beb7e9` (Release-Commit v3.12.0, 2026-11-10; inhaltsgleich mit dem Arbeitsstand `40b8704d`, gegen den geprüft wurde). „HA“ ist `energietracker-ha`, „HACS“ ist
+`e3ed91b0` (Stand v3.12.0 vom 2026-11-10: Bilder neu seit `0e09c74a`, PHP 8.3 als Mindestversion seit `e3ed91b0`; übrige Inhalte wie `40b8704d`, gegen den die Texte geprüft wurden). „HA“ ist `energietracker-ha`, „HACS“ ist
 `energietracker-hacs`. Wo ein Test genannt ist, sichert er die Aussage im Code.
 
 ## Einstieg
@@ -31,7 +31,6 @@ Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 
 | Kennung | Aussage | Beleg |
 |---|---|---|
-| `steuert-nicht` | Der Energietracker rechnet nach, was Home Assistant, evcc und der Speicher tun; er steuert nichts. | `docs/anleitungen/flexibilitaet.md` Kasten „Der Energietracker steuert nichts“, `roadmap.md` „Bewusst nicht geplant“ |
 | `messkonzept` | Jeder Vertrag zahlt nur seinen Teil; der Assistent „Messkonzept einrichten“ kennt zwei Zähler nebeneinander, Subzähler dahinter und Kaskade, auch mit Wärmepumpe und HT/NT; er fragt nach dem Aufbau. | CHANGELOG 3.9.0 (Titel „Jeder Vertrag zahlt nur seinen Teil. Messkonzepte …“), `README.de.md` („Messkonzepte mit Wärmepumpe und HT/NT“), `docs/anleitungen/anwendungsfaelle.md` Fall H, Bild `docs/ui/screenshots/messkonzept.png` (Text „deshalb fragt der Assistent nach dem Aufbau“) |
 | `viertelstunden` | Viertelstunden aus Home Assistant alle 15 Minuten oder aus Dateien von Netzbetreiber und Wechselrichter. | `docs/anleitungen/home-assistant.md` „Viertelstunden: zusätzlich alle 15 Minuten (v3.3.0)“, `docs/einstieg/funktionen.md` „Zeitreihen aus Portalen“ |
 | `flex` | Die Seite Flexibilität rechnet nach, ob Verschieben etwas gebracht hat. | `docs/anleitungen/flexibilitaet.md` Einleitung (seit v3.3.0, je Viertelstunde) |
@@ -39,9 +38,7 @@ Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 | `jaz` | Jahresarbeitszahl der Wärmepumpe aus Wärmemengen- und Stromzähler, je Monat und für die Heizperiode. | `docs/einstieg/funktionen.md` „Wärmepumpe (v3.1.0)“ |
 | `werkstatt-pv` | Die Werkstatt rechnet größere Anlage, Speicher, mehr Eigenverbrauch oder andere Vergütung als Modellwert aus dem gemessenen Jahr, mit genannter Grundlage. | CHANGELOG 3.12.0 „PV in der Werkstatt“ (F1040), `docs/anleitungen/was-waere-wenn.md` § 6b, Bild `docs/ui/screenshots/werkstatt-pv.png` |
 | `evcc` | Ladevorgänge aus evcc. | `docs/einstieg/funktionen.md` („Ladevorgänge aus evcc“), `docs/anleitungen/evcc.md` |
-| `ladestrom` | Ladestrom-Nachweis für den Dienstwagen als CSV und PDF. | `docs/einstieg/funktionen.md` „Ladestrom-Nachweis (v3.1.0)“ |
 | `grenze-wp-wetter` | Die Prognose für Wärmepumpe, PV und Speicher nach dem Wetter kommt mit v3.13, geplant für den 17.11.2026. | CHANGELOG 3.12.0 „Bekannte Grenzen“ und Schlusssatz („v3.13.0 ist für Dienstag, 17. November 2026 geplant“), `roadmap.md` „Als Nächstes“ |
-| `grenze-pv-spanne` | Bis dahin rechnet die Werkstatt die PV mit dem zuletzt gemessenen Jahr; ohne ein Jahr Viertelstunden als Spanne mit zwei Grenzen. | CHANGELOG 3.12.0 „Bekannte Grenzen“, Punkt Werkstatt; „PV in der Werkstatt“ |
 
 ## Haus mit Gas, Öl oder Pellets
 
@@ -59,7 +56,6 @@ Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 | Kennung | Aussage | Beleg |
 |---|---|---|
 | `miete-vorauszahlung` | Vorauszahlung gegen die erwarteten Kosten des laufenden Abrechnungszeitraums, passende Vorauszahlung je Monat; eine Hilfsrechnung, keine Nebenkostenabrechnung. | `docs/anleitungen/mieter.md` Einleitung und Kasten, `docs/einstieg/funktionen.md` „Mietverhältnis“; Bild aufgenommen mit v3.12.0, Beispielhaushalt „Ich wohne zur Miete“ (`tools/aufnahme.mjs`) |
-| `miete-heizwaerme` | Den monatlichen Verbrauch des Messdienstes trägst du als Heizwärme ein. | `docs/anleitungen/mieter.md` §§ 2 und 3 |
 | `co2` | CO₂-Kosten teilen: bei eigener Gastherme Anteil des Vermieters mit Anschreiben als PDF, bei Zentralheizung Prüfung der Heizkostenabrechnung. | `docs/anleitungen/co2-aufteilung.md` § 2 „Welcher Fall bist du?“ |
 | `miete-fristen` | Fristen für Abrechnung und Einwände im Kalender, Abrechnungen samt PDF an einem Ort. | `docs/anleitungen/mieter.md` Einleitung und § 8, `docs/einstieg/funktionen.md` „Mietverhältnis“ |
 | `co2-de` | Die CO₂-Aufteilung gibt es nur für Deutschland, nach dem CO2KostAufG, als Hilfsrechnung ohne Rechtsberatung. | `docs/anleitungen/co2-aufteilung.md` § 1 (Land Deutschland) und Kasten „Eine Hilfsrechnung, keine Rechtsberatung“ |
@@ -102,8 +98,6 @@ Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 | `ki-herkunft` | Jede Zahl mit Herkunft (gemessen, eingetragen, verteilt, angenommen, geschätzt), Geschätztes mit Spanne. | CHANGELOG 3.12.0 „Herkunft je Zahl“ und „Server-Anweisungen“, `docs/verstehen/18-herkunft.md`, Test `McpProvenanceTest` |
 | `ki-vorschlag` | Die KI schlägt vor; ab Werk bestätigst du jeden Vorschlag in der App. | `README.de.md` „Auf einen Blick“, CHANGELOG 3.12.0 „Übernahme nur in der App (ab Werk)“, Test `ReadmeClaimsTest::testAiIsOffByDefaultAndProposalsAreConfirmedInTheApp`, `McpApplyInAppTest` |
 | `ki-aus` | Ab Werk aus, eigener Schlüssel je Programm. | CHANGELOG 3.12.0 „KI-Schnittstelle ab Werk aus“ und „Eigene Schlüssel für die KI“, `docs/anleitungen/ki-assistent.md` Zeilen 18 und 19 |
-| `ki-schutz` | Kennnummern und Originale nur mit eigenem Schalter; jeder Zugriff im Protokoll. | CHANGELOG 3.12.0 „Kennnummern und Originale nur mit eigenem Schalter“ und „Endpunkte“ (`GET /api/mcp/journal`, Verlauf › Zugriffe der KI), `roadmap.md` („jeder Zugriff im Protokoll“) |
-| `ki-lokal` | Mit Open WebUI und Ollama geht, was die KI liest, an das eigene Sprachmodell im Haus. | `docs/anleitungen/ki-assistent.md` „Die Grenzen“ („Lokal mit Ollama über Open WebUI … bleibt es im Haus“) |
 | `ki-geprueft` | Geprüft mit Open WebUI und einem lokalen Modell über Ollama; andere Programme und Cloud-Modelle experimentell. | `docs/anleitungen/ki-assistent.md` doc-claim `mcp-tested-with`, Test `ReadmeClaimsTest::testTestedClientsMatchTheGuide` |
 | `grenze-ki-nachfrage` | Ob ein anderes Programm vor einer Übernahme nachfragt, ist nicht geprüft; deshalb bestätigst du ab Werk in der App. | CHANGELOG 3.12.0 „Bekannte Grenzen“, erster Punkt |
 | `demo-ohne-ki` | Die öffentliche Demo zeigt die KI-Seite, hat aber keine KI-Schnittstelle. | CHANGELOG 3.12.0 „In der App, nur für Verwalter“ (letzter Satz) und „Bekannte Grenzen“, Punkt HACS |
@@ -113,7 +107,6 @@ Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 
 | Kennung | Aussage | Beleg |
 |---|---|---|
-| `posteingang` | PDF in den Posteingang, eine KI im Heimnetz liest es aus, jede Zahl mit ihrer Stelle im Dokument. | `README.de.md` „Auf einen Blick“, dritte Zeile, `docs/anleitungen/posteingang.md` |
 | `zutun` | Zu tun sammelt Fristen, Termine, Empfehlungen, Rechte und Post in einer Liste. | CHANGELOG 3.12.0 „Zu tun sammelt alles Offene“ |
 | `kalender` | Termine und Fristen als Abo im eigenen Kalender. | `docs/einstieg/funktionen.md` „Kalender-Abo“, `docs/anleitungen/kalender.md` |
 | `jahresbericht` | Jahresbericht als PDF für Leser ohne Technikhintergrund, das Wichtigste vorn, je Verbrauchsart eine Seite. | `docs/einstieg/funktionen.md` „Jahresbericht“ (seit v3.4.0) |
@@ -156,9 +149,8 @@ Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 | `install-hacs` | Sensoren über die HACS-Integration als benutzerdefiniertes Repository, Typ Integration. | HACS `README.md` „Installation“ |
 | `install-nas` | Synology: Container Manager, Projekt › Erstellen, Ordner und `docker-compose.yml`, Projekt starten, `http://<NAS-Adresse>:8080`. | `docs/betrieb/docker.md` „Synology Container Manager“ |
 | `nas-vorlagen` | Vorlagen für Unraid, CasaOS und Umbrel liegen bei; die Unraid-Vorlage ist gegen Format und Image geprüft, auf einem echten Server nicht ausprobiert. | `docs/betrieb/docker.md` „Unraid“ (Kasten „Wie geprüft“), „CasaOS und ZimaOS“, „Umbrel“; `deploy/` |
-| `install-web` | Apache oder nginx mit PHP ab 8.2, ohne Composer; `.htaccess` bzw. `docker/nginx.conf`; Schreibrecht auf `data/`. | `docs/betrieb/installation.md` §§ 1 und 3, `docs/betrieb/webserver.md`, `README.de.md` („Ohne Docker genügt PHP ab 8.2“) |
+| `install-web` | Apache oder nginx mit PHP ab 8.3, ohne Composer; `.htaccess` bzw. `docker/nginx.conf`; Schreibrecht auf `data/`. | `docs/betrieb/installation.md` §§ 1 und 3, `docs/betrieb/webserver.md`, `README.de.md` („Ohne Docker genügt PHP ab 8.3“), CHANGELOG 3.12.0 („PHP 8.3 ist jetzt die Mindestversion“) |
 | `anmeldung` | Ohne Anmeldung kann jeder, der die App erreicht, alles lesen und ändern; im Heimnetz in Ordnung, vor Zugriff von außen einschalten. | `README.de.md` Warnkasten unter „Schnellstart“ |
-| `demo-routen` | Die Sprünge in die Demo führen in den genannten Beispielhaushalt und die genannte Ansicht. | `public/js/lib/demo-mode.js` (`?persona=`, `?lang=`, Haushalte `mieterin`, `showcase`; Stufe Experte ab Werk in `public/js/lib/levels.js`); die Ansichten `#/utility/strom`, `#/tenancy`, `#/todo?art=rights` und `#/connections/ai?mcp=value` am 2026-11-10 in v3.12.0 lokal geöffnet, Titel stimmt; `#/utility/gas` ist die Adresse der Aufnahme `gas-view.png` (`docs/entwicklung/screenshots.md`) |
 
 ## Vorhaben und Mitmachen
 
@@ -180,6 +172,62 @@ Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 
 | Kennung | Aussage | Beleg |
 |---|---|---|
-| `seite-selbst` | Die Seite lädt nichts von fremden Servern, setzt keine Cookies, zählt keine Besuche; im Browser merkt sie sich nur den geschlossenen Sprachhinweis; ausgeliefert von GitHub Pages. | `tools/build.mjs --check` (Regel R1: keine Ressource von außen, `site.js` ohne Serverzugriff), `assets/site.js` (einziger Speicherschlüssel `projektseite.sprache`, kein `document.cookie`) |
+| `seite-selbst` | Die Seite lädt nichts von fremden Servern, setzt keine Cookies, zählt keine Besuche; Schriften, Bilder und Skripte liegen auf ihr selbst; ausgeliefert von GitHub Pages. | `tools/build.mjs --check` (Regel R1: keine Ressource von außen, `seite.js` ohne Serverzugriff und ohne `document.cookie`), `assets/seite.js`, Einstellungen des Repos (Pages aus `main`) |
 | `marken` | Produktnamen nur zur Beschreibung, keine Verbindung zu den Inhabern. | `TRADEMARKS.md` („purely descriptive … no connection“) |
 | `schrift` | Schrift DM Sans und DM Mono unter der SIL Open Font License 1.1. | `CREDITS.md`, `assets/fonts/OFL.txt` |
+
+## Überarbeitung: Wertversprechen, Ablauf, Slider, Nutzen
+
+| Kennung | Aussage | Beleg |
+|---|---|---|
+| `wertversprechen` | Deine Energiekosten im Griff: Abschlag, Rechnung, Wechsel und Rechte. | Zusammenfassung der hier belegten Funktionen `saldo`, `abschlag`, `rechnung-pruefen`, `wechsel`, `rechte-sieben`; darüber hinaus keine eigene Behauptung |
+| `agpl-kostenlos` | Kostenlos, offener Code (AGPL): nutzen, verändern und weitergeben ohne Konto und ohne Gebühr. | `README.de.md` „Lizenz“ („kostenlos nutzen, verändern, weitergeben, ohne Bedingungen, ohne Konto, ohne Gebühr“), `LICENSE` |
+| `ohne-gewinn` | Ein privates Projekt ohne Gewinnabsicht. | Auskunft des Maintainers vom 2026-11-10 im Auftrag zur Projektseite („keine Gewinnabsichten“); `README.de.md` „Unterstützen“ (keine Firma dahinter, keine Werbung) |
+| `kuendigung-erinnerung` | Der Energietracker sagt rechtzeitig, was ansteht: Erinnerung an Kündigungsfristen bis zum letzten Kündigungstag. | `docs/einstieg/funktionen.md` „Kündigungsfristen … Erinnerung in drei Stufen bis zum letzten Kündigungstag“ |
+| `eingabe-wege` | Stände von Hand, per CSV, als PDF aus der Versorgerpost oder automatisch aus Home Assistant. | `README.de.md` „Für wen“, Zeile Zählerstände („von Hand, per CSV, aus der Versorgerpost oder von Home Assistant“), `docs/anleitungen/posteingang.md` |
+| `vertrag-tagesgenau` | Gerechnet wird mit dem Vertrag auf den Tag genau. | `docs/einstieg/funktionen.md` „Verträge … tagesgenau: Ein Wechsel oder eine Preisänderung zur Monatsmitte gilt ab ihrem Tag“ |
+| `wetter` | Mit dem Wetter am eigenen Ort; jeder Monat gegen seine Erwartung bei diesem Wetter. | `docs/einstieg/funktionen.md` „Temperaturen automatisch von Open-Meteo für den eigenen Standort“ und „Heizgradtage … Wetterbereinigung“ |
+| `prognose` | Prognose bis zu 24 Monate voraus, mit Unsicherheitsband und den dann gültigen Preisen; bis zur Abrechnung. | `docs/einstieg/funktionen.md` „Prognose über bis zu 24 Monate mit Unsicherheitsband (80 % der Jahre), Kosten je Monat aus dem dann gültigen Tarif“ |
+| `zaesur` | Die Auswertung misst die Wirkung einer Sanierung je Gradtag und sagt, ob sie statistisch belegt ist. | `docs/einstieg/funktionen.md` „Zäsur … Vorher/Nachher-Kennzahl je Gradtag, mit Aussage, ob sie statistisch belegt ist“, Bild `docs/ui/screenshots/analyse.png` |
+| `kennzahlen` | Kennzahlen: Effizienz in kWh je m² mit Klasse, Einordnung als Ampel, Bestand in den Tanks. | `docs/einstieg/funktionen.md` „Effizienz“ und „Einordnung … als Ampel“, CHANGELOG 3.12.0 „Auswertungen › Kennzahlen“ |
+| `sparen-belegbar` | Keine erfundenen Sparbeträge, du siehst deine eigenen Zahlen. | `README.de.md` „Auf einen Blick“, Zeile „Sparen, wo es belegbar ist“ |
+| `abschlag-brief` | Ist der Abschlag deutlich zu hoch, gibt es den Antrag als Brief (Strom, Gas, Fernwärme). | `docs/verstehen/17-rechte.md` „Auf einen Blick“, Zeile „Abschlag deutlich zu hoch“ (Antrag auf Abschlagsanpassung), CHANGELOG 3.12.0 „Brief schreiben am Vertrag“ |
+| `demo-routen` | Die Sprünge führen in den genannten Beispielhaushalt und die genannte Ansicht der Demo. | `public/js/lib/demo-mode.js` (`?persona=`, `?lang=`; Haushalte `mieterin`, `etw-fernwaerme`, `eigenheim-klassisch`, `eigenheim-modern`, `showcase`), `public/js/router.js` `ROUTES` (jede verlinkte Ansicht steht dort), Stufe Experte ab Werk in der Demo (`public/js/lib/levels.js`); `#/utility/strom`, `#/tenancy`, `#/bill-check`, `#/tariffs`, `#/forecast`, `#/todo?art=rights`, `#/connections/ai?mcp=value` am 2026-11-10 in v3.12.0 lokal geöffnet |
+
+## Alle Energieträger
+
+| Kennung | Aussage | Beleg |
+|---|---|---|
+| `art-gas` | Gas: m³ in kWh nach Stichtagen, Rechnung prüfen, Wetter herausgerechnet. | `docs/verstehen/01-gas.md` „Umrechnungsfaktoren mit Stichtagen“, „Rechnungsprüfung“; `docs/einstieg/funktionen.md` „Wetterbereinigung“ |
+| `art-strom` | Strom: HT/NT, Wärmepumpe und Wallbox, steuerbare Verbraucher, dynamische Tarife. | `docs/verstehen/02-strom.md` „Hoch- und Niedertarif“, „Steuerbare Verbraucher“, „Dynamische Tarife“, „Wallbox und Dienstwagen“ |
+| `art-wasser` | Wasser: Trinkwasser, Schmutzwasser und Niederschlag, Garten- und Warmwasserzähler. | `docs/verstehen/03-wasser.md` „Drei-Komponenten-Tarif“, „Rollen: Kalt, Warm, Garten“ |
+| `art-fernwaerme` | Fernwärme: Leistungs- und Messpreis wie auf der Rechnung, Rechnung prüfen. | `docs/verstehen/04-fernwaerme.md` „Feste Kosten: Leistungs- und Messpreis“, `docs/einstieg/funktionen.md` „Rechnungsprüfung für Gas, Strom, Wasser und Fernwärme“ |
+| `art-heizoel` | Heizöl: Tankbuch aus Lieferungen und Peilständen, Bestand über das Jahr. | `docs/verstehen/05-heizoel.md` „Tankbuch“, „Tank-Bestandskurve“ |
+| `art-pellets` | Pellets: wie Heizöl, in Kilogramm, die Lieferrechnung ist der Vertrag. | `docs/verstehen/06-pellets.md` §§ 1 und 2 |
+| `art-pv-einspeisung` | PV-Einspeisung: Vergütung je Abrechnungsjahr, Gutschriften des Direktvermarkters. | CHANGELOG 3.12.0 „PV-Einspeisung je Abrechnungsjahr“, `docs/verstehen/12-pv.md` § 11 |
+| `art-pv-erzeugung` | PV-Erzeugung: Eigenverbrauch, Autarkie, Speicher, Balkonkraftwerk, Amortisation. | `docs/verstehen/12-pv.md` §§ 4, 7, 8, 9 |
+| `art-waerme` | Heizwärme: Verbrauchsinfo des Messdienstes, Warmwasser, Jahresarbeitszahl der Wärmepumpe. | `docs/verstehen/15-waerme.md` §§ 2, 6, 7, `docs/anleitungen/mieter.md` § 3 |
+
+## Home Assistant und Häufige Fragen
+
+| Kennung | Aussage | Beleg |
+|---|---|---|
+| `ha-vorlagen` | Unter Verbindungen › Home Assistant stehen die Vorlagen zum Kopieren. | `docs/anleitungen/home-assistant.md` „Überblick“ („unter Verbindungen → Home Assistant vorbereiten, inkl. Copy-&-Paste-YAML“) |
+| `hacs-voraussetzung` | Die HACS-Integration braucht den Energietracker ab 3.9.0 und Home Assistant ab 2026.3. | HACS `README.md` „Requirements“, `hacs.json` (`homeassistant`: `2026.3.0`) |
+| `ki-cloud-kosten` | Wer eine KI in der Cloud anbindet, zahlt dort womöglich deren Anbieter. | `docs/anleitungen/ki-assistent.md` („Ein Modell in der Cloud … dort können Kosten entstehen“) |
+| `backup` | Backup als Datei. | `README.de.md` „Für wen“ („CSV und JSON-Backup, keine Datenbank“) |
+| `vertrag-eintragen` | Vertrag und Preise trägst du selbst ein oder übernimmst sie aus der Rechnung. | `README.de.md` „Für wen“, Zeile Kosten; CHANGELOG 3.9.0 (Vertrag aus der Rechnung) |
+| `kein-versorger` | Eine Verbindung zum Versorger braucht es nicht. | `README.de.md` „Deine Daten“ (vollständige Liste der Verbindungen nach außen, kein Versorger darunter), Test `OutboundHostsTest` |
+| `ki-kein-nachteil` | Wer keine KI nutzt, hat keinen Nachteil. | `docs/anleitungen/ki-assistent.md` „Die Grenzen“ (wörtlich) |
+| `posteingang-dienst` | Für das Auslesen der Versorgerpost trägst du einen eigenen Dienst ein. | `README.de.md` „Wege, die du selbst einschaltest“ (eigener Texterkennungsdienst im Heimnetz) und „Auslesen in der Cloud ist aus“ |
+| `json-ld` | Maschinenlesbare Beschreibung (schema.org SoftwareApplication): Name, Version 3.12.0, Lizenz AGPL, kostenlos, sieben Sprachen, Docker amd64/arm64, Home Assistant OS, PHP ab 8.3, Releases, Handbuch, Autor als GitHub-Konto. | `VERSION`, `LICENSE`, Kennungen `agpl-kostenlos`, `sprachen`, `multiarch`, `ha-app`, `install-web`, `pseudonym`; ohne Zählung oder Verweis auf Dienste Dritter |
+
+## Über das Projekt und Datenschutz
+
+| Kennung | Aussage | Beleg |
+|---|---|---|
+| `pseudonym` | Entwickelt und gepflegt von Bingerminger auf GitHub. | Konto `github.com/Bingerminger` (Inhaber der drei Repositories), Autor der Commits |
+| `kontakt-github` | Kontakt über GitHub: Discussions, Issues, vertraulich über Security Advisories. | `README.de.md` „Hilfe und Gemeinschaft“, `SECURITY.md` „Eine Sicherheitslücke melden“, CHANGELOG 3.12.0 („Gemeldet wird nur über GitHub“) |
+| `seite-speicher` | Im Browser merkt sich die Seite nur die Wahl der Darstellung und ob der Sprachhinweis geschlossen wurde. | `assets/seite.js` (einzige Schlüssel `projektseite.thema` und `projektseite.sprache`, nur `localStorage`), Kopf jeder Seite (liest nur `projektseite.thema`), Check R1 (kein `document.cookie`) |
+| `github-pages-log` | GitHub Pages protokolliert beim Aufruf die IP-Adresse zur Sicherheit, auch ohne Anmeldung. | docs.github.com, „About GitHub Pages“, Abschnitt „Data collection“ (abgerufen 2026-11-10) |
+| `links-aussen` | Links nach außen führen zu GitHub, zur Demo, zu Home Assistant und zu buymeacoffee; erst beim Anklicken gelten deren Regeln. | Seiten selbst (alle fremden Adressen stehen nur in Links), Check R1 (nichts wird von außen geladen) |

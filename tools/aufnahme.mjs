@@ -26,7 +26,8 @@ if (!out) {
   console.error('node tools/aufnahme.mjs <port> <de|en> <route> <ziel.png> [breite] [höhe] [light|dark]');
   process.exit(2);
 }
-const browser = await chromium.launch();
+// Datumsfelder formatiert der Browser selbst: Region des Browsers passend zur Sprache (docs/entwicklung/screenshots.md)
+const browser = await chromium.launch({ args: [`--lang=${lang === 'en' ? 'en-GB' : 'de-DE'}`] });
 const ctx = await browser.newContext({
   viewport: { width: Number(w), height: Number(h) },
   locale: lang === 'en' ? 'en-GB' : 'de-DE',

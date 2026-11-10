@@ -1,24 +1,29 @@
 // Baut die Projektseite und prüft ihre Regeln.
 //
-//   node tools/build.mjs           schreibt index.html, en/index.html, 404.html
+//   node tools/build.mjs           schreibt index.html, en/index.html, ueber/index.html,
+//                                  en/about/index.html, 404.html
 //   node tools/build.mjs --check   schreibt nichts, bricht ab, wenn eine Regel verletzt ist
 //                                  oder die Dateien nicht zum Quelltext passen
 //
 // Regeln (Auftrag und Designsprache der App):
 //  R1  keine Ressourcen von außen: src, srcset, Stylesheets, Skripte, Schriften, url() nur lokal
-//  R2  jede lokale Datei, auf die die Seite zeigt, gibt es
+//  R2  jede lokale Datei, Sprungmarke und Grafik, auf die die Seite zeigt, gibt es
 //  R3  öffentliche Texte ohne Gedankenstrich (– —) und ohne Mittelpunkt (·) als Trenner
-//  R4  keine Beträge (€, EUR) und keine Download-, Nutzer- oder Sternzahlen
+//  R4  keine Beträge (€, EUR) und keine Download-, Nutzer- oder Sternzahlen im sichtbaren Text
 //  R5  jede Aussage hat eine Kennung, jede Kennung steht in aussagen.md, jede Zeile dort wird benutzt,
-//      Deutsch und Englisch belegen dieselben Kennungen
-//  R6  jedes Bild hat einen Alternativtext und feste Maße
+//      Deutsch und Englisch belegen je Seite dieselben Kennungen
+//  R6  jedes Bild hat einen Alternativtext und feste Maße, jede Quelle eines Bildes Maße
 //  R7  CSS: Farbwerte nur in den Token-Blöcken, keine Großschrift, keine Sperrung, nur drei Radien
 //  R8  höchstens eine Fettung je Absatz, Listenpunkt oder Bildunterschrift
-//  R9  ein h1 je Seite, Sprache gesetzt, Sprachfassungen verknüpft
+//  R9  ein h1 je Seite, Sprache gesetzt, Sprachfassungen verknüpft, Seite „Über“ von jeder Seite erreichbar
+//  R10 Darstellung wie in der App: Umschalter mit Beschriftung, Thema vor dem ersten Zeichnen gesetzt,
+//      dunkle Tokens für System und Wahl gleich, jede dunkle Bildquelle umschaltbar
+//  R11 Bilder-Slider: je Reiter genau ein Bild, verknüpft, jedes mit Frage, Text und Alternativtext
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { rende } from '../src/seite.mjs';
+import { rende, SEITEN, DATEI } from '../src/seiten.mjs';
+import { SLIDER } from '../src/texte.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CHECK = process.argv.includes('--check');
@@ -27,10 +32,12 @@ const bad = (rule, msg) => fail.push(`${rule}: ${msg}`);
 
 const pages = {};
 const claims = {};
-for (const lang of ['de', 'en']) {
-  const r = rende(lang, ROOT);
-  pages[lang === 'de' ? 'index.html' : 'en/index.html'] = r.html;
-  claims[lang] = r.claims;
+for (const art of Object.keys(SEITEN)) {
+  for (const lang of ['de', 'en']) {
+    const r = rende(lang, art, ROOT);
+    pages[DATEI(SEITEN[art][lang])] = r.html;
+    claims[`${art}.${lang}`] = r.claims;
+  }
 }
 pages['404.html'] = seite404();
 
@@ -43,8 +50,9 @@ function seite404() {
 <title>Seite nicht gefunden | Page not found</title>
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
+<script>(function(){try{var m=localStorage.getItem('projektseite.thema');if(m==='light'||m==='dark'){document.documentElement.setAttribute('data-theme',m);}}catch(e){}})();</script>
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/stil.css">
 </head>
 <body>
 <main id="inhalt" class="abschnitt"><div class="wrap">
@@ -57,13 +65,15 @@ function seite404() {
 `;
 }
 
+const attrOf = (html, re) => [...html.matchAll(re)].map(m => m[1]);
+
 // ── R1, R2, R6, R9: Verweise und Bilder ────────────────────────────
 for (const [file, html] of Object.entries(pages)) {
   const base = dirname(join(ROOT, file));
-  const attr = (re) => [...html.matchAll(re)].map(m => m[1]);
+  const attr = (re) => attrOf(html, re);
   const loaded = [
-    ...attr(/<(?:img|script|source)\b[^>]*\ssrc="([^"]+)"/g),
-    ...attr(/\ssrcset="([^"]+)"/g).flatMap(s => s.split(',').map(x => x.trim().split(/\s+/)[0])),
+    ...attr(/<(?:img|script|source|video)\b[^>]*\ssrc="([^"]+)"/g),
+    ...attr(/\s(?:srcset|poster)="([^"]+)"/g).flatMap(s => s.split(',').map(x => x.trim().split(/\s+/)[0])),
     ...[...html.matchAll(/<link\b([^>]*)>/g)]
       .filter(m => /rel="(?:stylesheet|icon|preload|apple-touch-icon|manifest|modulepreload)"/.test(m[1]))
       .map(m => (m[1].match(/href="([^"]+)"/) || [])[1]),
@@ -77,18 +87,18 @@ for (const [file, html] of Object.entries(pages)) {
   for (const u of attr(/<a\b[^>]*\shref="([^"]+)"/g)) {
     if (/^(?:https?:|mailto:|#)/.test(u)) continue;
     let p = u.startsWith('/') ? join(ROOT, u) : resolve(base, u);
+    const hash = u.includes('#') ? u.slice(u.indexOf('#') + 1) : '';
     p = p.replace(/[?#].*$/, '');
-    if (u.endsWith('/') || u === './' || u === '../') p = join(p, 'index.html');
-    const erzeugt = Object.keys(pages).some(f => join(ROOT, f) === p);
-    if (!erzeugt && !existsSync(p)) bad('R2', `${file} verlinkt fehlende Datei: ${u}`);
+    if (u.replace(/#.*$/, '').endsWith('/')) p = join(p, 'index.html');
+    const ziel = Object.keys(pages).find(f => join(ROOT, f) === p);
+    if (!ziel && !existsSync(p)) bad('R2', `${file} verlinkt fehlende Datei: ${u}`);
+    if (ziel && hash && !new RegExp(`\\sid="${hash}"`).test(pages[ziel])) bad('R2', `${file}: Sprungmarke ${u} fehlt in ${ziel}`);
   }
-  // Vorschaubild für Links: eigene Adresse, die Datei muss im Repo liegen
   for (const u of attr(/<meta property="og:image" content="([^"]+)"/g)) {
     const local = u.replace(/^https:\/\/bingerminger\.github\.io\//, '');
     if (local === u) bad('R1', `${file}: Vorschaubild nicht auf der eigenen Seite: ${u}`);
-    else if (!existsSync(join(ROOT, local))) bad('R2', `${file}: Vorschaubild fehlt: ${local} (node tools/vorschau.mjs)`);
+    else if (!existsSync(join(ROOT, local))) bad('R2', `${file}: Vorschaubild fehlt: ${local} (node tools/bilder.mjs)`);
   }
-  // Sprungmarken innerhalb der Seite
   const ids = new Set(attr(/\sid="([^"]+)"/g));
   for (const u of attr(/\shref="#([^"]+)"/g)) if (!ids.has(u)) bad('R2', `${file}: Sprungmarke #${u} fehlt`);
   for (const use of attr(/<use href="#([^"]+)"/g)) if (!ids.has(use)) bad('R2', `${file}: Grafik #${use} fehlt im Sprite`);
@@ -97,10 +107,15 @@ for (const [file, html] of Object.entries(pages)) {
     if (!/\salt="[^"]+"/.test(tag)) bad('R6', `${file}: Bild ohne Alternativtext: ${tag.slice(0, 80)}`);
     if (!/\swidth="\d+"/.test(tag) || !/\sheight="\d+"/.test(tag)) bad('R6', `${file}: Bild ohne Maße: ${tag.slice(0, 80)}`);
   }
+  for (const m of html.matchAll(/<source\b[^>]*>/g)) {
+    if (!/\swidth="\d+"/.test(m[0]) || !/\sheight="\d+"/.test(m[0])) bad('R6', `${file}: Bildquelle ohne Maße: ${m[0].slice(0, 80)}`);
+  }
   if (file !== '404.html') {
     if ((html.match(/<h1\b/g) || []).length !== 1) bad('R9', `${file}: nicht genau ein h1`);
     if (!/<html lang="(de|en)">/.test(html)) bad('R9', `${file}: Sprache fehlt`);
     if (!/hreflang="de"/.test(html) || !/hreflang="en"/.test(html)) bad('R9', `${file}: Sprachfassungen nicht verknüpft`);
+    const lang = html.match(/<html lang="(de|en)">/)?.[1];
+    if (lang && !html.includes(`href="${SEITEN.ueber[lang]}"`)) bad('R9', `${file}: kein Link auf „Über das Projekt und Datenschutz“`);
   }
 }
 
@@ -108,7 +123,7 @@ for (const [file, html] of Object.entries(pages)) {
 const sichtbar = (html) => html
   .replace(/<svg class="sprite"[\s\S]*?<\/svg>/, '')
   .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, '')
-  .replace(/<[^>]+\s(?:alt|content|aria-label|title)="([^"]*)"[^>]*>/g, ' $1 ')
+  .replace(/<[^>]+\s(?:alt|content|aria-label|title|data-[a-z-]+)="([^"]*)"[^>]*>/g, ' $1 ')
   .replace(/<[^>]+>/g, ' ')
   .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 const texte = { ...pages, 'aussagen.md': readFileSync(join(ROOT, 'aussagen.md'), 'utf8') };
@@ -125,7 +140,7 @@ for (const [file, content] of Object.entries(texte)) {
   }
 }
 for (const [file, html] of Object.entries(pages)) {
-  for (const m of html.matchAll(/<(p|li|figcaption)\b[^>]*>([\s\S]*?)<\/\1>/g)) {
+  for (const m of html.matchAll(/<(p|li|figcaption|summary)\b[^>]*>([\s\S]*?)<\/\1>/g)) {
     const n = (m[2].match(/<strong>/g) || []).length;
     if (n > 1) bad('R8', `${file}: ${n} Fettungen in „${sichtbar(m[2]).trim().slice(0, 60)}“`);
   }
@@ -134,31 +149,73 @@ for (const [file, html] of Object.entries(pages)) {
 // ── R5: Belege ─────────────────────────────────────────────────────
 const aussagen = readFileSync(join(ROOT, 'aussagen.md'), 'utf8');
 const belegt = new Set([...aussagen.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map(m => m[1]));
-const benutzt = new Set([...claims.de, ...claims.en]);
+const benutzt = new Set(Object.values(claims).flatMap(s => [...s]));
 for (const c of benutzt) if (!belegt.has(c)) bad('R5', `Kennung ohne Beleg in aussagen.md: ${c}`);
 for (const c of belegt) if (!benutzt.has(c)) bad('R5', `Zeile in aussagen.md, die keine Seite benutzt: ${c}`);
-for (const c of claims.de) if (!claims.en.has(c)) bad('R5', `nur Deutsch belegt: ${c}`);
-for (const c of claims.en) if (!claims.de.has(c)) bad('R5', `nur Englisch belegt: ${c}`);
+for (const art of Object.keys(SEITEN)) {
+  const de = claims[`${art}.de`], en = claims[`${art}.en`];
+  for (const c of de) if (!en.has(c)) bad('R5', `${art}: nur Deutsch belegt: ${c}`);
+  for (const c of en) if (!de.has(c)) bad('R5', `${art}: nur Englisch belegt: ${c}`);
+}
 
 // ── R7: CSS ────────────────────────────────────────────────────────
-const css = readFileSync(join(ROOT, 'assets/site.css'), 'utf8');
-const [, rest = ''] = css.split('/* ── Ende der Tokens ── */');
-if (!rest) bad('R7', 'Marke „Ende der Tokens“ fehlt in site.css');
+const css = readFileSync(join(ROOT, 'assets/stil.css'), 'utf8');
+const [tokens = '', rest = ''] = css.split('/* ── Ende der Tokens ── */');
+if (!rest) bad('R7', 'Marke „Ende der Tokens“ fehlt in stil.css');
 const hex = rest.match(/#[0-9a-f]{3,8}\b/i);
 if (hex) bad('R7', `Farbwert außerhalb der Tokens: ${hex[0]}`);
 if (/rgba?\(/.test(rest)) bad('R7', 'rgb()/rgba() außerhalb der Tokens');
 if (/text-transform\s*:\s*uppercase/i.test(css)) bad('R7', 'Großschrift (text-transform: uppercase)');
 if (/letter-spacing/i.test(css)) bad('R7', 'Sperrung (letter-spacing)');
 for (const m of css.matchAll(/border-radius\s*:\s*([^;]+);/g)) {
-  if (!/^var\(--r-(sm|md)\)$/.test(m[1].trim())) bad('R7', `Radius außerhalb der drei Stufen: ${m[1]}`);
+  if (!/^(var\(--r-(sm|md)\)|50%)$/.test(m[1].trim())) bad('R7', `Radius außerhalb der drei Stufen: ${m[1]}`);
 }
 for (const m of css.matchAll(/url\(([^)]+)\)/g)) {
   const u = m[1].replace(/["']/g, '');
-  if (/^(?:[a-z]+:)?\/\//i.test(u)) bad('R1', `site.css lädt von außen: ${u}`);
-  else if (!existsSync(resolve(join(ROOT, 'assets'), u))) bad('R2', `site.css: Datei fehlt: ${u}`);
+  if (/^(?:[a-z]+:)?\/\//i.test(u)) bad('R1', `stil.css lädt von außen: ${u}`);
+  else if (!existsSync(resolve(join(ROOT, 'assets'), u))) bad('R2', `stil.css: Datei fehlt: ${u}`);
 }
-const js = readFileSync(join(ROOT, 'assets/site.js'), 'utf8');
-if (/https?:\/\/|fetch\(|XMLHttpRequest|import\(/.test(js)) bad('R1', 'site.js spricht mit einem Server');
+const js = readFileSync(join(ROOT, 'assets/seite.js'), 'utf8');
+if (/https?:\/\/|fetch\(|XMLHttpRequest|import\(|sendBeacon|document\.cookie/.test(js)) bad('R1', 'seite.js spricht mit einem Server oder setzt Cookies');
+const schluessel = [...js.matchAll(/'(projektseite\.[a-z]+)'/g)].map(m => m[1]);
+if (!schluessel.length || schluessel.some(k => !k.startsWith('projektseite.'))) bad('R1', 'seite.js: Speicherschlüssel ohne Präfix projektseite.');
+
+// ── R10: Darstellung ───────────────────────────────────────────────
+const block = (re) => { const m = tokens.match(re); return m ? m[1].replace(/\s+/g, ' ').trim() : ''; };
+const dunkelSystem = block(/:root:not\(\[data-theme="light"\]\)\s*\{([^}]*)\}/);
+const dunkelWahl = block(/:root\[data-theme="dark"\]\s*\{([^}]*)\}/).replace(/color-scheme: dark; ?/, '');
+if (!dunkelSystem || dunkelSystem !== dunkelWahl) bad('R10', 'dunkle Tokens für System und Wahl sind nicht gleich');
+const hell = new Set([...block(/:root\s*\{([^}]*)\}/).matchAll(/(--[a-z0-9_-]+):/g)].map(m => m[1]));
+for (const v of dunkelSystem.matchAll(/(--[a-z0-9_-]+):/g)) if (!hell.has(v[1])) bad('R10', `dunkles Token ohne helles: ${v[1]}`);
+for (const [file, html] of Object.entries(pages)) {
+  const kopf = html.slice(0, html.indexOf('<link rel="stylesheet"'));
+  if (!/localStorage\.getItem\('projektseite\.thema'\)[\s\S]*setAttribute\('data-theme'/.test(kopf)) bad('R10', `${file}: Thema wird nicht vor dem Stylesheet gesetzt`);
+  if (file === '404.html') continue;
+  const knopf = html.match(/<button type="button" class="thema" id="thema"[^>]*>/)?.[0] || '';
+  if (!knopf) bad('R10', `${file}: Umschalter fehlt`);
+  for (const a of ['aria-label', 'data-label', 'data-system', 'data-light', 'data-dark', 'data-meldung-system', 'data-meldung-light', 'data-meldung-dark']) {
+    if (knopf && !new RegExp(`\\s${a}="[^"]+"`).test(knopf)) bad('R10', `${file}: Umschalter ohne ${a}`);
+  }
+  for (const s of html.matchAll(/<source\b[^>]*>/g)) {
+    const dunkel = /prefers-color-scheme: dark/.test(s[0]);
+    if (dunkel !== /data-thema="dunkel"/.test(s[0])) bad('R10', `${file}: dunkle Bildquelle nicht umschaltbar: ${s[0].slice(0, 90)}`);
+  }
+}
+if (!/projektseite\.thema/.test(js)) bad('R10', 'seite.js kennt den Schlüssel projektseite.thema nicht');
+
+// ── R11: Slider ────────────────────────────────────────────────────
+for (const lang of ['de', 'en']) {
+  const file = DATEI(SEITEN.start[lang]);
+  const html = pages[file];
+  const tabs = attrOf(html, /<a role="tab"[^>]*aria-controls="([^"]+)"/g);
+  const panels = attrOf(html, /<figure class="folie[^"]*" id="([^"]+)" role="tabpanel"/g);
+  if (tabs.length !== SLIDER.folien.length || panels.length !== tabs.length) bad('R11', `${file}: ${tabs.length} Reiter, ${panels.length} Bilder, ${SLIDER.folien.length} im Quelltext`);
+  tabs.forEach((t, i) => { if (panels[i] !== t) bad('R11', `${file}: Reiter ${i + 1} zeigt auf ${t}, Bild heißt ${panels[i]}`); });
+  for (const f of html.matchAll(/<figure class="folie[\s\S]*?<\/figure>/g)) {
+    if (!/<img\b[^>]*\salt="[^"]+"/.test(f[0]) && !/<video\b/.test(f[0])) bad('R11', `${file}: Bild im Slider ohne Alternativtext`);
+    if (!/class="folie__frage"/.test(f[0]) || !/class="folie__demo"/.test(f[0])) bad('R11', `${file}: Bild im Slider ohne Frage oder Sprung in die Demo`);
+  }
+}
 
 // ── Schreiben oder vergleichen ─────────────────────────────────────
 if (CHECK) {
@@ -177,4 +234,4 @@ if (fail.length) {
   console.error(`${fail.length} Regelverstöße:\n  ${fail.join('\n  ')}`);
   process.exit(1);
 }
-console.log(`${CHECK ? 'geprüft' : 'gebaut'}: ${Object.keys(pages).join(', ')}; ${belegt.size} belegte Aussagen; Regeln R1 bis R9 eingehalten`);
+console.log(`${CHECK ? 'geprüft' : 'gebaut'}: ${Object.keys(pages).join(', ')}; ${belegt.size} belegte Aussagen; Regeln R1 bis R11 eingehalten`);

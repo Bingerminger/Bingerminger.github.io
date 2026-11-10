@@ -3,13 +3,16 @@
 //   NODE_PATH=<Ordner mit playwright> node tools/bilder.mjs     (ET_REPO=../energietracker)
 //
 // Liest nur. Schneidet die Aufnahmen der Oberfläche (docs/ui/screenshots,
-// docs/assets/promo/screens) zu und schreibt sie als WebP nach
-// assets/img/screens/. Kodiert wird im Browser (Canvas → image/webp), damit
-// kein weiteres Werkzeug nötig ist. Dazu kommen die Schaubilder des Wegweisers,
-// Logo, Favicon und die Schriften DM Sans und DM Mono (SIL OFL 1.1).
+// docs/assets/promo/screens) zu und schreibt sie als WebP nach assets/img/screens/.
+// Kodiert wird im Browser (Canvas → image/webp), damit kein weiteres Werkzeug nötig ist.
+// Gibt es eine dunkle Aufnahme, entsteht daneben <name>-dunkel.<lang>.webp; die Seite
+// zeigt sie im dunklen Thema. Die Schaubilder des Wegweisers folgen in der App dem
+// System; hier entstehen je eine helle und eine dunkle Fassung, damit sie auch dem
+// Umschalter der Seite folgen. Dazu Logo, Favicon, Vorschaubild für Links (die
+// Social Preview aus M6) und die Schriften DM Sans und DM Mono (SIL OFL 1.1).
 // Woher jedes Bild kommt, steht danach in assets/img/quellen.json.
 import { createRequire } from 'node:module';
-import { readFileSync, writeFileSync, copyFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, copyFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -22,31 +25,41 @@ const SHOTS = 'docs/ui/screenshots';
 const PROMO = 'docs/assets/promo/screens';
 const en = (p) => p.replace(`${SHOTS}/`, `${SHOTS}/en/`);
 
-/** name, Quelle je Sprache, Ausschnitt [x, y, b, h] in Pixeln der Aufnahme, Zielbreite */
+/**
+ * name, Quelle je Sprache (de, sonst en aus docs/ui/screenshots/en/), dunkle Quelle je Sprache
+ * (dunkelDe/dunkelEn, falls es eine gibt), Ausschnitt [x, y, b, h] in Pixeln der Aufnahme, Zielbreite.
+ * Ausschnitte meiden Sparbeträge der erfundenen Beispiele (Auftrag: keine Sparbeträge).
+ */
 const JOBS = [
-  { name: 'uebersicht', de: `${PROMO}/uebersicht.de.png`, en: `${PROMO}/uebersicht.en.png`, width: 1440 },
-  { name: 'uebersicht-dunkel', de: `${PROMO}/uebersicht-dunkel.de.png`, en: `${PROMO}/uebersicht-dunkel.en.png`, width: 1440 },
-  { name: 'iphone', de: `${PROMO}/iphone.de.png`, en: `${PROMO}/iphone.en.png`, width: 780 },
-  { name: 'iphone-dunkel', de: `${PROMO}/iphone-dunkel.de.png`, en: `${PROMO}/iphone-dunkel.en.png`, width: 780 },
-  { name: 'strom', de: `${SHOTS}/strom-view.png`, crop: [220, 48, 1220, 620] },
-  { name: 'werkstatt-pv', de: `${SHOTS}/werkstatt-pv.png`, crop: [624, 834, 792, 572], cropEn: [624, 818, 792, 586] },
-  { name: 'messkonzept', de: `${SHOTS}/messkonzept.png`, crop: [230, 140, 980, 610] },
-  { name: 'gas', de: `${SHOTS}/gas-view.png`, crop: [220, 48, 1220, 600], cropEn: [220, 48, 1220, 582] },
-  { name: 'heizoel-tank', de: `${SHOTS}/heizoel-view.png`, crop: [240, 760, 1180, 470] },
+  { name: 'uebersicht', de: `${PROMO}/uebersicht.de.png`, en: `${PROMO}/uebersicht.en.png`,
+    dunkelDe: `${PROMO}/uebersicht-dunkel.de.png`, dunkelEn: `${PROMO}/uebersicht-dunkel.en.png`, width: 1440 },
+  { name: 'iphone', de: `${PROMO}/iphone.de.png`, en: `${PROMO}/iphone.en.png`,
+    dunkelDe: `${PROMO}/iphone-dunkel.de.png`, dunkelEn: `${PROMO}/iphone-dunkel.en.png`, width: 780 },
+  { name: 'gas', de: `${SHOTS}/gas-view.png`, crop: [220, 48, 1220, 762] },
+  { name: 'rechnung', de: 'tools/quellen/rechnung.de.png', en: 'tools/quellen/rechnung.en.png', local: true, crop: [220, 48, 1220, 762] },
+  { name: 'wechsel', de: `${SHOTS}/tarifvergleich.png`, crop: [220, 48, 1220, 490] },
+  { name: 'zutun', de: `${SHOTS}/zu-tun.png`, crop: [220, 48, 1220, 762] },
+  { name: 'analyse', de: `${SHOTS}/analyse.png`, crop: [220, 500, 1220, 762] },
+  { name: 'prognose', de: `${SHOTS}/prognose.png`, crop: [624, 836, 792, 664] },
+  { name: 'werkstatt', de: `${SHOTS}/prognose.png`, crop: [220, 48, 1220, 762] },
+  { name: 'jahresbericht', de: `${SHOTS}/jahresbericht.png`, crop: [220, 48, 890, 740] },
+  { name: 'kennzahlen', de: `${SHOTS}/kennzahlen.png`, crop: [220, 48, 1220, 740] },
   { name: 'miete', de: 'tools/quellen/miete.de.png', en: 'tools/quellen/miete.en.png', local: true, crop: [220, 48, 1220, 780] },
-  { name: 'verbindungen', de: `${SHOTS}/verbindungen.png`, crop: [220, 48, 1220, 762] },
-  { name: 'rechte', de: `${SHOTS}/rechte-hinweis.png`, crop: [220, 48, 1220, 770] },
   { name: 'brief', de: `${SHOTS}/brief-dialog.png`, crop: [235, 40, 970, 810] },
-  { name: 'ki', de: `${SHOTS}/ki-assistenten.png`, crop: [220, 48, 1220, 800] },
+  { name: 'erfassen', de: `${SHOTS}/erfassen-iphone.png`, width: 780 },
 ];
 
-const WEGWEISER = ['together', 'local-ai', 'home-assistant'];
+const WEGWEISER = ['together', 'home-assistant'];
 const FONTS = ['dm-sans.woff2', 'dm-sans-ziffern.woff2', 'dm-mono-400.woff2', 'OFL.txt'];
+// Vorschaubild für Links: die freigegebene Social Preview aus M6, als Kopie in tools/quellen/
+const VORSCHAU = 'tools/quellen';
 
 const commit = execFileSync('git', ['-C', ET, 'rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = (...p) => join(ROOT, ...p);
-mkdirSync(out('assets/img/screens'), { recursive: true });
-mkdirSync(out('assets/img/wegweiser'), { recursive: true });
+for (const d of ['assets/img/screens', 'assets/img/wegweiser']) {
+  rmSync(out(d), { recursive: true, force: true });
+  mkdirSync(out(d), { recursive: true });
+}
 mkdirSync(out('assets/fonts'), { recursive: true });
 
 const { chromium } = require('playwright');
@@ -55,45 +68,61 @@ const page = await browser.newPage();
 await page.setContent('<!doctype html><body></body>');
 
 const manifest = { commit, bilder: [] };
+async function zuschneiden(file, crop, width, target, quelle) {
+  const dataUrl = `data:image/png;base64,${readFileSync(file).toString('base64')}`;
+  const res = await page.evaluate(async ({ dataUrl, crop, width }) => {
+    const img = new Image();
+    img.src = dataUrl;
+    await img.decode();
+    const [x, y, w, h] = crop || [0, 0, img.naturalWidth, img.naturalHeight];
+    const tw = width || w;
+    const th = Math.round(h * tw / w);
+    const c = document.createElement('canvas');
+    c.width = tw; c.height = th;
+    const g = c.getContext('2d');
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(img, x, y, w, h, 0, 0, tw, th);
+    return { url: c.toDataURL('image/webp', 0.84), w: tw, h: th };
+  }, { dataUrl, crop, width });
+  writeFileSync(out(target), Buffer.from(res.url.split(',')[1], 'base64'));
+  manifest.bilder.push({ datei: target, quelle, ausschnitt: crop || null, breite: res.w, hoehe: res.h });
+}
 for (const job of JOBS) {
   for (const lang of ['de', 'en']) {
     const rel = job[lang] || en(job.de);
-    const file = job.local ? out(rel) : join(ET, rel);
-    const dataUrl = `data:image/png;base64,${readFileSync(file).toString('base64')}`;
     const crop = (lang === 'en' && job.cropEn) || job.crop;
-    const res = await page.evaluate(async ({ dataUrl, crop, width }) => {
-      const img = new Image();
-      img.src = dataUrl;
-      await img.decode();
-      const [x, y, w, h] = crop || [0, 0, img.naturalWidth, img.naturalHeight];
-      const tw = width || w;
-      const th = Math.round(h * tw / w);
-      const c = document.createElement('canvas');
-      c.width = tw; c.height = th;
-      const g = c.getContext('2d');
-      g.imageSmoothingQuality = 'high';
-      g.drawImage(img, x, y, w, h, 0, 0, tw, th);
-      return { url: c.toDataURL('image/webp', 0.84), w: tw, h: th, src: [img.naturalWidth, img.naturalHeight] };
-    }, { dataUrl, crop, width: job.width });
-    const target = `assets/img/screens/${job.name}.${lang}.webp`;
-    writeFileSync(out(target), Buffer.from(res.url.split(',')[1], 'base64'));
-    manifest.bilder.push({ datei: target, quelle: job.local ? rel : `energietracker/${rel}`, ausschnitt: crop || null, breite: res.w, hoehe: res.h });
+    const quelle = (r) => (job.local ? r : `energietracker/${r}`);
+    await zuschneiden(job.local ? out(rel) : join(ET, rel), crop, job.width, `assets/img/screens/${job.name}.${lang}.webp`, quelle(rel));
+    const dunkel = job[lang === 'de' ? 'dunkelDe' : 'dunkelEn'];
+    if (dunkel && existsSync(join(ET, dunkel))) {
+      await zuschneiden(join(ET, dunkel), crop, job.width, `assets/img/screens/${job.name}-dunkel.${lang}.webp`, quelle(dunkel));
+    }
   }
 }
 await browser.close();
 
+// Schaubilder: helle Fassung ohne den Block für das dunkle System, dunkle mit ihm als Grundwert
+const DARK = /@media \(prefers-color-scheme:dark\)\{(:root\{[^}]*\})\}/;
 for (const name of WEGWEISER) {
   for (const lang of ['de', 'en']) {
     for (const v of ['', '.narrow']) {
-      const f = `${name}.${lang}${v}.svg`;
-      copyFileSync(join(ET, 'docs/ui/wegweiser', f), out('assets/img/wegweiser', f));
-      manifest.bilder.push({ datei: `assets/img/wegweiser/${f}`, quelle: `energietracker/docs/ui/wegweiser/${f}` });
+      const f = `${name}.${lang}${v}`;
+      const svg = readFileSync(join(ET, 'docs/ui/wegweiser', `${f}.svg`), 'utf8');
+      const m = svg.match(DARK);
+      if (!m) throw new Error(`${f}.svg: Block für das dunkle Thema nicht gefunden`);
+      writeFileSync(out('assets/img/wegweiser', `${f}.hell.svg`), svg.replace(DARK, ''));
+      writeFileSync(out('assets/img/wegweiser', `${f}.dunkel.svg`), svg.replace(DARK, m[1]));
+      for (const t of ['hell', 'dunkel']) manifest.bilder.push({ datei: `assets/img/wegweiser/${f}.${t}.svg`, quelle: `energietracker/docs/ui/wegweiser/${f}.svg (${t})` });
     }
   }
 }
+for (const lang of ['de', 'en']) {
+  copyFileSync(out(VORSCHAU, `vorschau.${lang}.png`), out(`assets/img/vorschau.${lang}.png`));
+  manifest.bilder.push({ datei: `assets/img/vorschau.${lang}.png`, quelle: `${VORSCHAU}/vorschau.${lang}.png (Social Preview aus M6)`, breite: 1280, hoehe: 640 });
+}
 for (const f of FONTS) copyFileSync(join(ET, 'public/vendor/fonts', f), out('assets/fonts', f));
 copyFileSync(join(ET, 'docs/assets/promo/logo.svg'), out('assets/img/logo.svg'));
-// Die Grafiken der App, unverändert: die Seite rendert daraus ihr eigenes Sprite (src/seite.mjs).
+// Die Grafiken der App, unverändert: die Seite rendert daraus ihr eigenes Sprite (src/seiten.mjs).
 copyFileSync(join(ET, 'public/js/lib/icons.js'), out('src/icons-app.mjs'));
 copyFileSync(join(ET, 'public/favicon.ico'), out('favicon.ico'));
 copyFileSync(join(ET, 'public/img/icon-light-180.png'), out('assets/img/apple-touch-icon.png'));

@@ -1,5 +1,5 @@
 {
-  "commit": "20beb7e9",
+  "commit": "e3ed91b0",
   "bilder": [
     {
       "datei": "assets/img/screens/uebersicht.de.webp",
@@ -9,15 +9,15 @@
       "hoehe": 1000
     },
     {
-      "datei": "assets/img/screens/uebersicht.en.webp",
-      "quelle": "energietracker/docs/assets/promo/screens/uebersicht.en.png",
+      "datei": "assets/img/screens/uebersicht-dunkel.de.webp",
+      "quelle": "energietracker/docs/assets/promo/screens/uebersicht-dunkel.de.png",
       "ausschnitt": null,
       "breite": 1440,
       "hoehe": 1000
     },
     {
-      "datei": "assets/img/screens/uebersicht-dunkel.de.webp",
-      "quelle": "energietracker/docs/assets/promo/screens/uebersicht-dunkel.de.png",
+      "datei": "assets/img/screens/uebersicht.en.webp",
+      "quelle": "energietracker/docs/assets/promo/screens/uebersicht.en.png",
       "ausschnitt": null,
       "breite": 1440,
       "hoehe": 1000
@@ -37,15 +37,15 @@
       "hoehe": 1688
     },
     {
-      "datei": "assets/img/screens/iphone.en.webp",
-      "quelle": "energietracker/docs/assets/promo/screens/iphone.en.png",
+      "datei": "assets/img/screens/iphone-dunkel.de.webp",
+      "quelle": "energietracker/docs/assets/promo/screens/iphone-dunkel.de.png",
       "ausschnitt": null,
       "breite": 780,
       "hoehe": 1688
     },
     {
-      "datei": "assets/img/screens/iphone-dunkel.de.webp",
-      "quelle": "energietracker/docs/assets/promo/screens/iphone-dunkel.de.png",
+      "datei": "assets/img/screens/iphone.en.webp",
+      "quelle": "energietracker/docs/assets/promo/screens/iphone.en.png",
       "ausschnitt": null,
       "breite": 780,
       "hoehe": 1688
@@ -58,88 +58,16 @@
       "hoehe": 1688
     },
     {
-      "datei": "assets/img/screens/strom.de.webp",
-      "quelle": "energietracker/docs/ui/screenshots/strom-view.png",
-      "ausschnitt": [
-        220,
-        48,
-        1220,
-        620
-      ],
-      "breite": 1220,
-      "hoehe": 620
-    },
-    {
-      "datei": "assets/img/screens/strom.en.webp",
-      "quelle": "energietracker/docs/ui/screenshots/en/strom-view.png",
-      "ausschnitt": [
-        220,
-        48,
-        1220,
-        620
-      ],
-      "breite": 1220,
-      "hoehe": 620
-    },
-    {
-      "datei": "assets/img/screens/werkstatt-pv.de.webp",
-      "quelle": "energietracker/docs/ui/screenshots/werkstatt-pv.png",
-      "ausschnitt": [
-        624,
-        834,
-        792,
-        572
-      ],
-      "breite": 792,
-      "hoehe": 572
-    },
-    {
-      "datei": "assets/img/screens/werkstatt-pv.en.webp",
-      "quelle": "energietracker/docs/ui/screenshots/en/werkstatt-pv.png",
-      "ausschnitt": [
-        624,
-        818,
-        792,
-        586
-      ],
-      "breite": 792,
-      "hoehe": 586
-    },
-    {
-      "datei": "assets/img/screens/messkonzept.de.webp",
-      "quelle": "energietracker/docs/ui/screenshots/messkonzept.png",
-      "ausschnitt": [
-        230,
-        140,
-        980,
-        610
-      ],
-      "breite": 980,
-      "hoehe": 610
-    },
-    {
-      "datei": "assets/img/screens/messkonzept.en.webp",
-      "quelle": "energietracker/docs/ui/screenshots/en/messkonzept.png",
-      "ausschnitt": [
-        230,
-        140,
-        980,
-        610
-      ],
-      "breite": 980,
-      "hoehe": 610
-    },
-    {
       "datei": "assets/img/screens/gas.de.webp",
       "quelle": "energietracker/docs/ui/screenshots/gas-view.png",
       "ausschnitt": [
         220,
         48,
         1220,
-        600
+        762
       ],
       "breite": 1220,
-      "hoehe": 600
+      "hoehe": 762
     },
     {
       "datei": "assets/img/screens/gas.en.webp",
@@ -148,34 +76,202 @@
         220,
         48,
         1220,
-        582
+        762
       ],
       "breite": 1220,
-      "hoehe": 582
+      "hoehe": 762
     },
     {
-      "datei": "assets/img/screens/heizoel-tank.de.webp",
-      "quelle": "energietracker/docs/ui/screenshots/heizoel-view.png",
+      "datei": "assets/img/screens/rechnung.de.webp",
+      "quelle": "tools/quellen/rechnung.de.png",
       "ausschnitt": [
-        240,
-        760,
-        1180,
-        470
+        220,
+        48,
+        1220,
+        762
       ],
-      "breite": 1180,
-      "hoehe": 470
+      "breite": 1220,
+      "hoehe": 762
     },
     {
-      "datei": "assets/img/screens/heizoel-tank.en.webp",
-      "quelle": "energietracker/docs/ui/screenshots/en/heizoel-view.png",
+      "datei": "assets/img/screens/rechnung.en.webp",
+      "quelle": "tools/quellen/rechnung.en.png",
       "ausschnitt": [
-        240,
-        760,
-        1180,
-        470
+        220,
+        48,
+        1220,
+        762
       ],
-      "breite": 1180,
-      "hoehe": 470
+      "breite": 1220,
+      "hoehe": 762
+    },
+    {
+      "datei": "assets/img/screens/wechsel.de.webp",
+      "quelle": "energietracker/docs/ui/screenshots/tarifvergleich.png",
+      "ausschnitt": [
+        220,
+        48,
+        1220,
+        490
+      ],
+      "breite": 1220,
+      "hoehe": 490
+    },
+    {
+      "datei": "assets/img/screens/wechsel.en.webp",
+      "quelle": "energietracker/docs/ui/screenshots/en/tarifvergleich.png",
+      "ausschnitt": [
+        220,
+        48,
+        1220,
+        490
+      ],
+      "breite": 1220,
+      "hoehe": 490
+    },
+    {
+      "datei": "assets/img/screens/zutun.de.webp",
+      "quelle": "energietracker/docs/ui/screenshots/zu-tun.png",
+      "ausschnitt": [
+        220,
+        48,
+        1220,
+        762
+      ],
+      "breite": 1220,
+      "hoehe": 762
+    },
+    {
+      "datei": "assets/img/screens/zutun.en.webp",
+      "quelle": "energietracker/docs/ui/screenshots/en/zu-tun.png",
+      "ausschnitt": [
+        220,
+        48,
+        1220,
+        762
+      ],
+      "breite": 1220,
+      "hoehe": 762
+    },
+    {
+      "datei": "assets/img/screens/analyse.de.webp",
+      "quelle": "energietracker/docs/ui/screenshots/analyse.png",
+      "ausschnitt": [
+        220,
+        500,
+        1220,
+        762
+      ],
+      "breite": 1220,
+      "hoehe": 762
+    },
+    {
+      "datei": "assets/img/screens/analyse.en.webp",
+      "quelle": "energietracker/docs/ui/screenshots/en/analyse.png",
+      "ausschnitt": [
+        220,
+        500,
+        1220,
+        762
+      ],
+      "breite": 1220,
+      "hoehe": 762
+    },
+    {
+      "datei": "assets/img/screens/prognose.de.webp",
+      "quelle": "energietracker/docs/ui/screenshots/prognose.png",
+      "ausschnitt": [
+        624,
+        836,
+        792,
+        664
+      ],
+      "breite": 792,
+      "hoehe": 664
+    },
+    {
+      "datei": "assets/img/screens/prognose.en.webp",
+      "quelle": "energietracker/docs/ui/screenshots/en/prognose.png",
+      "ausschnitt": [
+        624,
+        836,
+        792,
+        664
+      ],
+      "breite": 792,
+      "hoehe": 664
+    },
+    {
+      "datei": "assets/img/screens/werkstatt.de.webp",
+      "quelle": "energietracker/docs/ui/screenshots/prognose.png",
+      "ausschnitt": [
+        220,
+        48,
+        1220,
+        762
+      ],
+      "breite": 1220,
+      "hoehe": 762
+    },
+    {
+      "datei": "assets/img/screens/werkstatt.en.webp",
+      "quelle": "energietracker/docs/ui/screenshots/en/prognose.png",
+      "ausschnitt": [
+        220,
+        48,
+        1220,
+        762
+      ],
+      "breite": 1220,
+      "hoehe": 762
+    },
+    {
+      "datei": "assets/img/screens/jahresbericht.de.webp",
+      "quelle": "energietracker/docs/ui/screenshots/jahresbericht.png",
+      "ausschnitt": [
+        220,
+        48,
+        890,
+        740
+      ],
+      "breite": 890,
+      "hoehe": 740
+    },
+    {
+      "datei": "assets/img/screens/jahresbericht.en.webp",
+      "quelle": "energietracker/docs/ui/screenshots/en/jahresbericht.png",
+      "ausschnitt": [
+        220,
+        48,
+        890,
+        740
+      ],
+      "breite": 890,
+      "hoehe": 740
+    },
+    {
+      "datei": "assets/img/screens/kennzahlen.de.webp",
+      "quelle": "energietracker/docs/ui/screenshots/kennzahlen.png",
+      "ausschnitt": [
+        220,
+        48,
+        1220,
+        740
+      ],
+      "breite": 1220,
+      "hoehe": 740
+    },
+    {
+      "datei": "assets/img/screens/kennzahlen.en.webp",
+      "quelle": "energietracker/docs/ui/screenshots/en/kennzahlen.png",
+      "ausschnitt": [
+        220,
+        48,
+        1220,
+        740
+      ],
+      "breite": 1220,
+      "hoehe": 740
     },
     {
       "datei": "assets/img/screens/miete.de.webp",
@@ -202,54 +298,6 @@
       "hoehe": 780
     },
     {
-      "datei": "assets/img/screens/verbindungen.de.webp",
-      "quelle": "energietracker/docs/ui/screenshots/verbindungen.png",
-      "ausschnitt": [
-        220,
-        48,
-        1220,
-        762
-      ],
-      "breite": 1220,
-      "hoehe": 762
-    },
-    {
-      "datei": "assets/img/screens/verbindungen.en.webp",
-      "quelle": "energietracker/docs/ui/screenshots/en/verbindungen.png",
-      "ausschnitt": [
-        220,
-        48,
-        1220,
-        762
-      ],
-      "breite": 1220,
-      "hoehe": 762
-    },
-    {
-      "datei": "assets/img/screens/rechte.de.webp",
-      "quelle": "energietracker/docs/ui/screenshots/rechte-hinweis.png",
-      "ausschnitt": [
-        220,
-        48,
-        1220,
-        770
-      ],
-      "breite": 1220,
-      "hoehe": 770
-    },
-    {
-      "datei": "assets/img/screens/rechte.en.webp",
-      "quelle": "energietracker/docs/ui/screenshots/en/rechte-hinweis.png",
-      "ausschnitt": [
-        220,
-        48,
-        1220,
-        770
-      ],
-      "breite": 1220,
-      "hoehe": 770
-    },
-    {
       "datei": "assets/img/screens/brief.de.webp",
       "quelle": "energietracker/docs/ui/screenshots/brief-dialog.png",
       "ausschnitt": [
@@ -274,76 +322,94 @@
       "hoehe": 810
     },
     {
-      "datei": "assets/img/screens/ki.de.webp",
-      "quelle": "energietracker/docs/ui/screenshots/ki-assistenten.png",
-      "ausschnitt": [
-        220,
-        48,
-        1220,
-        800
-      ],
-      "breite": 1220,
-      "hoehe": 800
+      "datei": "assets/img/screens/erfassen.de.webp",
+      "quelle": "energietracker/docs/ui/screenshots/erfassen-iphone.png",
+      "ausschnitt": null,
+      "breite": 780,
+      "hoehe": 1688
     },
     {
-      "datei": "assets/img/screens/ki.en.webp",
-      "quelle": "energietracker/docs/ui/screenshots/en/ki-assistenten.png",
-      "ausschnitt": [
-        220,
-        48,
-        1220,
-        800
-      ],
-      "breite": 1220,
-      "hoehe": 800
+      "datei": "assets/img/screens/erfassen.en.webp",
+      "quelle": "energietracker/docs/ui/screenshots/en/erfassen-iphone.png",
+      "ausschnitt": null,
+      "breite": 780,
+      "hoehe": 1688
     },
     {
-      "datei": "assets/img/wegweiser/together.de.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/together.de.svg"
+      "datei": "assets/img/wegweiser/together.de.hell.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/together.de.svg (hell)"
     },
     {
-      "datei": "assets/img/wegweiser/together.de.narrow.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/together.de.narrow.svg"
+      "datei": "assets/img/wegweiser/together.de.dunkel.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/together.de.svg (dunkel)"
     },
     {
-      "datei": "assets/img/wegweiser/together.en.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/together.en.svg"
+      "datei": "assets/img/wegweiser/together.de.narrow.hell.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/together.de.narrow.svg (hell)"
     },
     {
-      "datei": "assets/img/wegweiser/together.en.narrow.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/together.en.narrow.svg"
+      "datei": "assets/img/wegweiser/together.de.narrow.dunkel.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/together.de.narrow.svg (dunkel)"
     },
     {
-      "datei": "assets/img/wegweiser/local-ai.de.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/local-ai.de.svg"
+      "datei": "assets/img/wegweiser/together.en.hell.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/together.en.svg (hell)"
     },
     {
-      "datei": "assets/img/wegweiser/local-ai.de.narrow.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/local-ai.de.narrow.svg"
+      "datei": "assets/img/wegweiser/together.en.dunkel.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/together.en.svg (dunkel)"
     },
     {
-      "datei": "assets/img/wegweiser/local-ai.en.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/local-ai.en.svg"
+      "datei": "assets/img/wegweiser/together.en.narrow.hell.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/together.en.narrow.svg (hell)"
     },
     {
-      "datei": "assets/img/wegweiser/local-ai.en.narrow.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/local-ai.en.narrow.svg"
+      "datei": "assets/img/wegweiser/together.en.narrow.dunkel.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/together.en.narrow.svg (dunkel)"
     },
     {
-      "datei": "assets/img/wegweiser/home-assistant.de.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.de.svg"
+      "datei": "assets/img/wegweiser/home-assistant.de.hell.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.de.svg (hell)"
     },
     {
-      "datei": "assets/img/wegweiser/home-assistant.de.narrow.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.de.narrow.svg"
+      "datei": "assets/img/wegweiser/home-assistant.de.dunkel.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.de.svg (dunkel)"
     },
     {
-      "datei": "assets/img/wegweiser/home-assistant.en.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.en.svg"
+      "datei": "assets/img/wegweiser/home-assistant.de.narrow.hell.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.de.narrow.svg (hell)"
     },
     {
-      "datei": "assets/img/wegweiser/home-assistant.en.narrow.svg",
-      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.en.narrow.svg"
+      "datei": "assets/img/wegweiser/home-assistant.de.narrow.dunkel.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.de.narrow.svg (dunkel)"
+    },
+    {
+      "datei": "assets/img/wegweiser/home-assistant.en.hell.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.en.svg (hell)"
+    },
+    {
+      "datei": "assets/img/wegweiser/home-assistant.en.dunkel.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.en.svg (dunkel)"
+    },
+    {
+      "datei": "assets/img/wegweiser/home-assistant.en.narrow.hell.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.en.narrow.svg (hell)"
+    },
+    {
+      "datei": "assets/img/wegweiser/home-assistant.en.narrow.dunkel.svg",
+      "quelle": "energietracker/docs/ui/wegweiser/home-assistant.en.narrow.svg (dunkel)"
+    },
+    {
+      "datei": "assets/img/vorschau.de.png",
+      "quelle": "tools/quellen/vorschau.de.png (Social Preview aus M6)",
+      "breite": 1280,
+      "hoehe": 640
+    },
+    {
+      "datei": "assets/img/vorschau.en.png",
+      "quelle": "tools/quellen/vorschau.en.png (Social Preview aus M6)",
+      "breite": 1280,
+      "hoehe": 640
     }
   ]
 }
