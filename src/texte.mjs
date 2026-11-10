@@ -11,10 +11,10 @@
 
 export const REPO = 'https://github.com/Bingerminger/energietracker';
 export const REPO_HA = 'https://github.com/Bingerminger/energietracker-ha';
-export const REPO_HACS = 'https://github.com/Bingerminger/energietracker-hacs';
+export const REPO_HACS = 'https://github.com/Bingerminger/energietracker-integration';
 export const DEMO = 'https://bingerminger.github.io/energietracker/';
 export const HA_ADD = 'https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FBingerminger%2Fenergietracker-ha';
-export const HACS_OPEN = 'https://my.home-assistant.io/redirect/hacs_repository/?owner=Bingerminger&repository=energietracker-hacs&category=integration';
+export const HACS_OPEN = 'https://my.home-assistant.io/redirect/hacs_repository/?owner=Bingerminger&repository=energietracker-integration&category=integration';
 export const KAFFEE = 'https://buymeacoffee.com/bingerminger';
 export const GH_PRIVACY = 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement';
 export const GH_PAGES_DATA = 'https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#data-collection';
@@ -575,7 +575,7 @@ export const VORHABEN = {
     { icon: 'stecker', name: T('App für Home Assistant', 'Home Assistant app', ['-']), slug: 'Bingerminger/energietracker-ha', href: REPO_HA,
       text: T('Bringt den Energietracker als App in Home Assistant OS, mit demselben Image wie Docker. Ihre Version ist die des Energietrackers.',
         'Brings Energietracker to Home Assistant OS as an app, with the same image as Docker. Its version is the Energietracker version.', ['repo-ha']) },
-    { icon: 'bausteine', name: T('HACS-Integration', 'HACS integration', ['-']), slug: 'Bingerminger/energietracker-hacs', href: REPO_HACS,
+    { icon: 'bausteine', name: T('HACS-Integration', 'HACS integration', ['-']), slug: 'Bingerminger/energietracker-integration', href: REPO_HACS,
       text: T('Sensoren in Home Assistant ohne YAML. Sie liest nur die stabilen Schnittstellen, ein neues Release des Energietrackers braucht kein neues der Integration.',
         'Sensors in Home Assistant without YAML. It reads only the stable interfaces, so a new Energietracker release needs no new integration release.', ['repo-hacs']) },
   ],

@@ -7,7 +7,7 @@ fehlt, oder hier eine Zeile steht, die keine Seite benutzt.
 
 Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 `e3ed91b0` (Stand v3.12.0 vom 2026-11-10: Bilder neu seit `0e09c74a`, PHP 8.3 als Mindestversion seit `e3ed91b0`; übrige Inhalte wie `40b8704d`, gegen den die Texte geprüft wurden). „HA“ ist `energietracker-ha`, „HACS“ ist
-`energietracker-hacs`. Wo ein Test genannt ist, sichert er die Aussage im Code.
+`energietracker-integration`. Wo ein Test genannt ist, sichert er die Aussage im Code.
 
 ## Einstieg
 
