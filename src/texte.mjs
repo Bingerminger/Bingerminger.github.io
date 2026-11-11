@@ -667,8 +667,8 @@ export const UEBER = {
     ] },
     { h2: T('Impressum', 'Legal notice', ['-']), absaetze: [
       T('Angaben nach § 18 Abs. 1 MStV:', 'Information under section 18 (1) of the German Interstate Media Treaty (MStV):', ['impressum']),
-    ], anschrift: T('Hendrik Schubert\nc/o Block Services\nStuttgarter Str. 106\n70736 Fellbach',
-      'Hendrik Schubert\nc/o Block Services\nStuttgarter Str. 106\n70736 Fellbach\nGermany', ['impressum']),
+    ], anschrift: T('Bingerminger\nc/o Block Services\nStuttgarter Str. 106\n70736 Fellbach',
+      'Bingerminger\nc/o Block Services\nStuttgarter Str. 106\n70736 Fellbach\nGermany', ['impressum']),
     danach: [
       T('**Schneller geht es über GitHub**, siehe [Kontakt](#u-kontakt).', '**GitHub is quicker**, see [Contact](#u-kontakt).', ['kontakt-github']),
     ] },
