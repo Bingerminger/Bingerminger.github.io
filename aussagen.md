@@ -38,7 +38,7 @@ Pfade ohne Zusatz liegen im Haupt-Repo `Bingerminger/energietracker`, Stand
 | `jaz` | Jahresarbeitszahl der Wärmepumpe aus Wärmemengen- und Stromzähler, je Monat und für die Heizperiode. | `docs/einstieg/funktionen.md` „Wärmepumpe (v3.1.0)“ |
 | `werkstatt-pv` | Die Werkstatt rechnet größere Anlage, Speicher, mehr Eigenverbrauch oder andere Vergütung als Modellwert aus dem gemessenen Jahr, mit genannter Grundlage. | CHANGELOG 3.12.0 „PV in der Werkstatt“ (F1040), `docs/anleitungen/was-waere-wenn.md` § 6b, Bild `docs/ui/screenshots/werkstatt-pv.png` |
 | `evcc` | Ladevorgänge aus evcc. | `docs/einstieg/funktionen.md` („Ladevorgänge aus evcc“), `docs/anleitungen/evcc.md` |
-| `grenze-wp-wetter` | Die Prognose für Wärmepumpe, PV und Speicher nach dem Wetter kommt mit v3.13, geplant für den 17.11.2026. | CHANGELOG 3.12.0 „Bekannte Grenzen“ und Schlusssatz („v3.13.0 ist für Dienstag, 17. November 2026 geplant“), `roadmap.md` „Als Nächstes“ |
+| `grenze-wp-wetter` | Die Prognose für Wärmepumpe, PV und Speicher nach dem Wetter kommt mit v3.13 (ohne festen Termin seit 2026-11-12). | CHANGELOG 3.12.0 „Bekannte Grenzen“ und Schlusssatz („v3.13.0 ist für Dienstag, 17. November 2026 geplant“), `roadmap.md` „Als Nächstes“ |
 
 ## Haus mit Gas, Öl oder Pellets
 
