@@ -34,6 +34,8 @@ h1{font-size:clamp(34px,5vw,56px);line-height:1.08;letter-spacing:-1.1px;margin:
 .card .bild img{width:100%;height:100%;object-fit:cover}
 .card .text{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
 .card h2{margin:0;font-size:22px;letter-spacing:-.3px}
+.kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ver{display:inline-flex;line-height:0}.ver img{height:20px;width:auto}
 .card p{margin:0;color:var(--muted);font-size:16px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0;padding:0;list-style:none}
 .chips li{font-size:13px;font-weight:600;color:#cfd5de;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
@@ -68,7 +70,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
     <article class="card">
       <a class="bild" href="energietracker/"><img src="assets/projekte/energietracker.png" width="960" height="480" alt="Energietracker"></a>
       <div class="text">
-        <h2>Energietracker</h2>
+        <div class="kopf"><h2>Energietracker</h2><a class="ver" href="https://github.com/Bingerminger/energietracker/releases" title="Releases von Energietracker"><img src="https://img.shields.io/github/v/release/Bingerminger/energietracker?label=version&amp;color=blue" alt="Aktuelle Version von Energietracker" height="20"></a></div>
         <p>Energiekosten im Griff, selbst gehostet: Strom, Gas, Wasser und Wärme mit Bilanz, Rechnungsprüfung, Verträgen und Prognosen. Home Assistant misst, der Energietracker rechnet ab — mit lokaler KI über MCP.</p>
         <ul class="chips"><li>PHP</li><li>Home Assistant</li><li>AGPL-3.0</li></ul>
         <div class="links"><a class="btn primary" href="energietracker/">Projektseite</a><a class="btn" href="energietracker/demo/">Demo</a><a class="btn" href="https://github.com/Bingerminger/energietracker">GitHub</a></div>
@@ -77,7 +79,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
     <article class="card">
       <a class="bild" href="cat-o-fit/"><img src="assets/projekte/cat-o-fit.png" width="960" height="480" loading="lazy" alt="Cat-O-Fit"></a>
       <div class="text">
-        <h2>Cat-O-Fit</h2>
+        <div class="kopf"><h2>Cat-O-Fit</h2><a class="ver" href="https://github.com/Bingerminger/cat-o-fit/releases" title="Releases von Cat-O-Fit"><img src="https://img.shields.io/github/v/release/Bingerminger/cat-o-fit?label=version&amp;color=blue" alt="Aktuelle Version von Cat-O-Fit" height="20"></a></div>
         <p>Der selbst gehostete Trainingsplaner für die ganze Familie und Teams: periodisierte Pläne von 5 km bis Hyrox, Belastungssteuerung, Apple Health und Health Connect, Ernährung — in sieben Sprachen.</p>
         <ul class="chips"><li>JavaScript</li><li>PWA</li><li>AGPL-3.0</li></ul>
         <div class="links"><a class="btn primary" href="cat-o-fit/">Projektseite</a><a class="btn" href="cat-o-fit/demo/">Demo</a><a class="btn" href="https://github.com/Bingerminger/cat-o-fit">GitHub</a></div>
@@ -86,7 +88,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
     <article class="card">
       <a class="bild" href="update-all/"><img src="assets/projekte/update-all.png" width="960" height="480" loading="lazy" alt="update-all"></a>
       <div class="text">
-        <h2>update-all</h2>
+        <div class="kopf"><h2>update-all</h2><a class="ver" href="https://github.com/Bingerminger/update-all/releases" title="Releases von update-all"><img src="https://img.shields.io/github/v/release/Bingerminger/update-all?label=version&amp;color=blue" alt="Aktuelle Version von update-all" height="20"></a></div>
         <p>Ein Befehl hält den ganzen Mac aktuell — auch per SSH vom iPhone, ohne einen einzigen Dialog auf dem Mac-Schirm. macOS, Homebrew, App Store, npm, Python, KI-Werkzeuge in einem Lauf.</p>
         <ul class="chips"><li>zsh</li><li>tmux</li><li>MIT</li></ul>
         <div class="links"><a class="btn primary" href="update-all/">Projektseite</a><a class="btn" href="https://github.com/Bingerminger/update-all">GitHub</a></div>
@@ -95,7 +97,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
     <article class="card">
       <a class="bild" href="RookyCMS/"><img src="assets/projekte/rookycms.png" width="960" height="480" loading="lazy" alt="RookyCMS"></a>
       <div class="text">
-        <h2>RookyCMS</h2>
+        <div class="kopf"><h2>RookyCMS</h2><a class="ver" href="https://github.com/Bingerminger/RookyCMS/releases" title="Releases von RookyCMS"><img src="https://img.shields.io/github/v/release/Bingerminger/RookyCMS?label=version&amp;color=blue" alt="Aktuelle Version von RookyCMS" height="20"></a></div>
         <p>Das Ein-Seiten-Dashboard fürs Zuhause und kleine Teams: Monitoring-, Info- und Link-Kacheln im Bento-Grid — mit nichts als PHP und einer JSON-Datei. Keine Datenbank, kein Build-Schritt.</p>
         <ul class="chips"><li>PHP</li><li>Dashboard</li><li>AGPL-3.0</li></ul>
         <div class="links"><a class="btn primary" href="RookyCMS/">Projektseite</a><span class="btn leise">Demo folgt</span><a class="btn" href="https://github.com/Bingerminger/RookyCMS">GitHub</a></div>
@@ -104,7 +106,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
     <article class="card">
       <a class="bild" href="sternenflunk/"><img src="assets/projekte/sternenflunk.png" width="960" height="480" loading="lazy" alt="Sternenflunk"></a>
       <div class="text">
-        <h2>Sternenflunk</h2>
+        <div class="kopf"><h2>Sternenflunk</h2><a class="ver" href="https://github.com/Bingerminger/sternenflunk/releases" title="Releases von Sternenflunk"><img src="https://img.shields.io/github/v/release/Bingerminger/sternenflunk?label=version&amp;color=blue" alt="Aktuelle Version von Sternenflunk" height="20"></a></div>
         <p>Das tägliche Paar-Flunkoskop für euch zwei: jeden Tag frisch geflunkert, mit Kino-Vorspann, Sternbild des Tages, Spielwiese und Sonntagsrätsel. Emotional treffsicher, wissenschaftlich haltlos.</p>
         <ul class="chips"><li>PHP</li><li>für zwei</li><li>AGPL-3.0</li></ul>
         <div class="links"><a class="btn primary" href="sternenflunk/">Projektseite</a><a class="btn" href="sternenflunk/demo/">Demo</a><a class="btn" href="https://github.com/Bingerminger/sternenflunk">GitHub</a></div>
