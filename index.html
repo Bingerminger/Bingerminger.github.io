@@ -7,6 +7,9 @@
 <meta name="description" content="Quelloffene Projekte von Bingerminger: Energietracker, Cat-O-Fit, RookyCMS, update-all und Sternenflunk — selbst gehostet, eure Daten bleiben bei euch.">
 <meta name="theme-color" content="#0f1217">
 <link rel="canonical" href="https://bingerminger.github.io/">
+<link rel="alternate" hreflang="de" href="https://bingerminger.github.io/">
+<link rel="alternate" hreflang="en" href="https://bingerminger.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://bingerminger.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Bingerminger — Projekte">
 <meta property="og:description" content="Selbst gehostete Werkzeuge für Zuhause, Familie und den eigenen Mac. Quelloffen, eure Daten bleiben bei euch.">
@@ -24,7 +27,11 @@ a:hover{text-decoration:underline}
 img{max-width:100%;height:auto;display:block}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
 header{padding:76px 0 36px}
-.eyebrow{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:rgba(86,182,194,.1);border:1px solid rgba(86,182,194,.25);padding:5px 11px;border-radius:999px;margin-bottom:18px}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:rgba(86,182,194,.1);border:1px solid rgba(86,182,194,.25);padding:5px 11px;border-radius:999px;margin:0}
+.oben{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.sprache{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;font-weight:700}
+.sprache a{padding:5px 12px;color:var(--muted)}.sprache a:hover{text-decoration:none;color:var(--text)}
+.sprache a[aria-current]{background:rgba(86,182,194,.15);color:var(--accent)}
 h1{font-size:clamp(34px,5vw,56px);line-height:1.08;letter-spacing:-1.1px;margin:0 0 16px;max-width:20ch}
 .lead{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:62ch;margin:0}
 .grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));padding:20px 0 70px}
@@ -59,7 +66,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
 <body>
 <header>
   <div class="wrap">
-    <span class="eyebrow">Bingerminger · Open Source</span>
+    <div class="oben"><span class="eyebrow">Bingerminger · Open Source</span><nav class="sprache" aria-label="Sprache / Language"><a aria-current="page" lang="de">DE</a><a href="en/" hreflang="en" lang="en">EN</a></nav></div>
     <h1>Selbst gehostete Werkzeuge für Zuhause, Familie und den eigenen Mac.</h1>
     <p class="lead">Fünf Projekte, ein Gedanke: Software, die bei euch läuft — auf dem NAS, dem Webspace oder dem eigenen Rechner. Quelloffen, ohne Konto beim Anbieter, eure Daten bleiben bei euch. Jedes Projekt hat eine eigene Seite; wo es eine Demo gibt, lässt sie sich ohne Installation ausprobieren.</p>
   </div>
@@ -77,12 +84,12 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
       </div>
     </article>
     <article class="card">
-      <a class="bild" href="cat-o-fit/"><img src="assets/projekte/cat-o-fit.png" width="960" height="480" loading="lazy" alt="Cat-O-Fit"></a>
+      <a class="bild" href="cat-o-fit/de/"><img src="assets/projekte/cat-o-fit.png" width="960" height="480" loading="lazy" alt="Cat-O-Fit"></a>
       <div class="text">
         <div class="kopf"><h2>Cat-O-Fit</h2><a class="ver" href="https://github.com/Bingerminger/cat-o-fit/releases" title="Releases von Cat-O-Fit"><img src="https://img.shields.io/github/v/release/Bingerminger/cat-o-fit?label=version&amp;color=blue" alt="Aktuelle Version von Cat-O-Fit" height="20"></a></div>
         <p>Der selbst gehostete Trainingsplaner für die ganze Familie und Teams: periodisierte Pläne von 5 km bis Hyrox, Belastungssteuerung, Apple Health und Health Connect, Ernährung — in sieben Sprachen.</p>
         <ul class="chips"><li>JavaScript</li><li>PWA</li><li>AGPL-3.0</li></ul>
-        <div class="links"><a class="btn primary" href="cat-o-fit/">Projektseite</a><a class="btn" href="cat-o-fit/demo/">Demo</a><a class="btn" href="https://github.com/Bingerminger/cat-o-fit">GitHub</a></div>
+        <div class="links"><a class="btn primary" href="cat-o-fit/de/">Projektseite</a><a class="btn" href="cat-o-fit/demo/?lang=de">Demo</a><a class="btn" href="https://github.com/Bingerminger/cat-o-fit">GitHub</a></div>
       </div>
     </article>
     <article class="card">

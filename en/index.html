@@ -1,13 +1,141 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Umgezogen — Energietracker</title>
-<link rel="canonical" href="https://bingerminger.github.io/energietracker/en/">
-<meta http-equiv="refresh" content="0; url=/energietracker/en/">
-<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bingerminger — self-hosted tools for home, family and your own Mac</title>
+<meta name="description" content="Open-source projects by Bingerminger: Energietracker, Cat-O-Fit, RookyCMS, update-all and Sternenflunk — self-hosted, your data stays with you.">
+<meta name="theme-color" content="#0f1217">
+<link rel="canonical" href="https://bingerminger.github.io/en/">
+<link rel="alternate" hreflang="de" href="https://bingerminger.github.io/">
+<link rel="alternate" hreflang="en" href="https://bingerminger.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://bingerminger.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bingerminger — Projects">
+<meta property="og:description" content="Self-hosted tools for home, family and your own Mac. Open source, your data stays with you.">
+<meta property="og:url" content="https://bingerminger.github.io/en/">
+<meta property="og:image" content="https://bingerminger.github.io/assets/projekte/energietracker.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f1217'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='800' fill='%2356b6c2'%3EB%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#0f1217;--bg2:#151a22;--card:#171c25;--line:#262d39;--text:#e8ebf0;--muted:#a3abb9;--dim:#7c8594;--accent:#56b6c2;--r:16px;--max:1160px;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Segoe UI,Roboto,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;color:var(--text);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;
+  background:radial-gradient(1100px 650px at 85% -10%,rgba(31,58,74,.8),transparent 60%),radial-gradient(900px 600px at -10% 30%,rgba(42,33,64,.7),transparent 55%),var(--bg)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+header{padding:76px 0 36px}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:rgba(86,182,194,.1);border:1px solid rgba(86,182,194,.25);padding:5px 11px;border-radius:999px;margin:0}
+.oben{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.sprache{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;font-weight:700}
+.sprache a{padding:5px 12px;color:var(--muted)}.sprache a:hover{text-decoration:none;color:var(--text)}
+.sprache a[aria-current]{background:rgba(86,182,194,.15);color:var(--accent)}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.08;letter-spacing:-1.1px;margin:0 0 16px;max-width:20ch}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:62ch;margin:0}
+.grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));padding:20px 0 70px}
+.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .15s ease,border-color .15s ease}
+.card:hover{transform:translateY(-3px);border-color:#3a4352}
+.card .bild{display:block;aspect-ratio:2/1;overflow:hidden;background:#0b0e13;border-bottom:1px solid var(--line)}
+.card .bild img{width:100%;height:100%;object-fit:cover}
+.card .text{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h2{margin:0;font-size:22px;letter-spacing:-.3px}
+.kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ver{display:inline-flex;line-height:0}.ver img{height:20px;width:auto}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0;padding:0;list-style:none}
+.chips li{font-size:13px;font-weight:600;color:#cfd5de;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:8px}
+.btn{display:inline-flex;align-items:center;padding:9px 15px;border-radius:10px;font-weight:650;font-size:15px;border:1px solid var(--line);color:var(--text);background:#1d232e}
+.btn:hover{text-decoration:none;border-color:#3a4352}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#081014}
+.btn.leise{color:var(--dim);border-style:dashed;background:transparent}
+.prinzip{border-top:1px solid var(--line);padding:56px 0;display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.prinzip div{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.prinzip b{display:block;margin-bottom:4px}
+.prinzip span{color:var(--muted);font-size:15.5px}
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--dim);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
+.coffee{display:inline-flex;align-items:center;gap:8px;background:#ffdd00;color:#1b1b1b;font-weight:700;border-radius:10px;padding:9px 14px;margin-left:auto}
+.coffee:hover{text-decoration:none}
+@media (max-width:640px){header{padding-top:48px}.coffee{margin-left:0}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
 </head>
 <body>
-<p>Die Seite ist umgezogen: <a href="/energietracker/en/">https://bingerminger.github.io/energietracker/en/</a></p>
+<header>
+  <div class="wrap">
+    <div class="oben"><span class="eyebrow">Bingerminger · Open Source</span><nav class="sprache" aria-label="Sprache / Language"><a href="/" hreflang="de" lang="de">DE</a><a aria-current="page" lang="en">EN</a></nav></div>
+    <h1>Self-hosted tools for home, family and your own Mac.</h1>
+    <p class="lead">Five projects, one idea: software that runs at your place — on a NAS, on web space or on your own computer. Open source, no account with a provider, your data stays with you. Every project has its own page; where there is a demo, you can try it without installing anything.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <article class="card">
+      <a class="bild" href="/energietracker/en/"><img src="/assets/projekte/energietracker.png" width="960" height="480" alt="Energietracker"></a>
+      <div class="text">
+        <div class="kopf"><h2>Energietracker</h2><a class="ver" href="https://github.com/Bingerminger/energietracker/releases" title="Releases of Energietracker"><img src="https://img.shields.io/github/v/release/Bingerminger/energietracker?label=version&amp;color=blue" alt="Current version of Energietracker" height="20"></a></div>
+        <p>Energy costs under control, self-hosted: electricity, gas, water and heat with balance, bill check, contracts and forecasts. Home Assistant measures, Energietracker settles the bill — with local AI over MCP.</p>
+        <ul class="chips"><li>PHP</li><li>Home Assistant</li><li>AGPL-3.0</li></ul>
+        <div class="links"><a class="btn primary" href="/energietracker/en/">Project page</a><a class="btn" href="/energietracker/demo/?lang=en">Demo</a><a class="btn" href="https://github.com/Bingerminger/energietracker">GitHub</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <a class="bild" href="/cat-o-fit/"><img src="/assets/projekte/cat-o-fit.png" width="960" height="480" loading="lazy" alt="Cat-O-Fit"></a>
+      <div class="text">
+        <div class="kopf"><h2>Cat-O-Fit</h2><a class="ver" href="https://github.com/Bingerminger/cat-o-fit/releases" title="Releases of Cat-O-Fit"><img src="https://img.shields.io/github/v/release/Bingerminger/cat-o-fit?label=version&amp;color=blue" alt="Current version of Cat-O-Fit" height="20"></a></div>
+        <p>The self-hosted training planner for the whole family and teams: periodised plans from 5K to Hyrox, load management, Apple Health and Health Connect, nutrition — in seven languages.</p>
+        <ul class="chips"><li>JavaScript</li><li>PWA</li><li>AGPL-3.0</li></ul>
+        <div class="links"><a class="btn primary" href="/cat-o-fit/">Project page</a><a class="btn" href="/cat-o-fit/demo/?lang=en">Demo</a><a class="btn" href="https://github.com/Bingerminger/cat-o-fit">GitHub</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <a class="bild" href="/update-all/"><img src="/assets/projekte/update-all.png" width="960" height="480" loading="lazy" alt="update-all"></a>
+      <div class="text">
+        <div class="kopf"><h2>update-all</h2><a class="ver" href="https://github.com/Bingerminger/update-all/releases" title="Releases of update-all"><img src="https://img.shields.io/github/v/release/Bingerminger/update-all?label=version&amp;color=blue" alt="Current version of update-all" height="20"></a></div>
+        <p>One command keeps the whole Mac up to date — even over SSH from an iPhone, without a single dialog on the Mac’s screen. macOS, Homebrew, App Store, npm, Python and AI tools in one run.</p>
+        <ul class="chips"><li>zsh</li><li>tmux</li><li>MIT</li></ul>
+        <div class="links"><a class="btn primary" href="/update-all/">Project page (German)</a><a class="btn" href="https://github.com/Bingerminger/update-all">GitHub</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <a class="bild" href="/RookyCMS/"><img src="/assets/projekte/rookycms.png" width="960" height="480" loading="lazy" alt="RookyCMS"></a>
+      <div class="text">
+        <div class="kopf"><h2>RookyCMS</h2><a class="ver" href="https://github.com/Bingerminger/RookyCMS/releases" title="Releases of RookyCMS"><img src="https://img.shields.io/github/v/release/Bingerminger/RookyCMS?label=version&amp;color=blue" alt="Current version of RookyCMS" height="20"></a></div>
+        <p>The one-page dashboard for home and small teams: monitoring, info and link tiles in a bento grid — with nothing but PHP and a JSON file. No database, no build step.</p>
+        <ul class="chips"><li>PHP</li><li>Dashboard</li><li>AGPL-3.0</li></ul>
+        <div class="links"><a class="btn primary" href="/RookyCMS/">Project page (German)</a><span class="btn leise">Demo coming soon</span><a class="btn" href="https://github.com/Bingerminger/RookyCMS">GitHub</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <a class="bild" href="/sternenflunk/"><img src="/assets/projekte/sternenflunk.png" width="960" height="480" loading="lazy" alt="Sternenflunk"></a>
+      <div class="text">
+        <div class="kopf"><h2>Sternenflunk</h2><a class="ver" href="https://github.com/Bingerminger/sternenflunk/releases" title="Releases of Sternenflunk"><img src="https://img.shields.io/github/v/release/Bingerminger/sternenflunk?label=version&amp;color=blue" alt="Current version of Sternenflunk" height="20"></a></div>
+        <p>The daily couple’s horoscope that admits it fibs: freshly made up every day, with a cinematic intro, the constellation of the day, a playground and a Sunday puzzle. Emotionally spot on, scientifically baseless.</p>
+        <ul class="chips"><li>PHP</li><li>for two</li><li>AGPL-3.0</li></ul>
+        <div class="links"><a class="btn primary" href="/sternenflunk/">Project page (German)</a><a class="btn" href="/sternenflunk/demo/">Demo</a><a class="btn" href="https://github.com/Bingerminger/sternenflunk">GitHub</a></div>
+      </div>
+    </article>
+  </div>
+
+  <section class="prinzip" aria-label="What all projects have in common">
+    <div><b>Self-hosted</b><span>Runs at your place: NAS, web space, Docker or your own computer.</span></div>
+    <div><b>Open source</b><span>Code, changes and plans are out in the open on GitHub.</span></div>
+    <div><b>Lean</b><span>No database, no heavy stack — easy to run and to back up.</span></div>
+    <div><b>Try first</b><span>Demos run in the browser, no installation needed.</span></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Bingerminger</span>
+    <a href="https://github.com/Bingerminger">GitHub</a>
+    <a href="/impressum/">Legal notice · Privacy (German)</a>
+    <a class="coffee" href="https://buymeacoffee.com/bingerminger">☕ Buy Me a Coffee</a>
+  </div>
+</footer>
 </body>
 </html>
